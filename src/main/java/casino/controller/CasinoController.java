@@ -28,9 +28,8 @@ public class CasinoController implements Controller {
         MainOption mainOption;
 
         casinoOutputView.printGreet();
-        Player player = registerPlayer();
+        Player player = readPlayer();
         casinoMainService.saveParticipant(player);
-        System.out.println(casinoMainService.findParticipantByRoleType(RoleType.PLAYER).toString());
 
         do {
             casinoOutputView.printBlankLine();
@@ -54,7 +53,7 @@ public class CasinoController implements Controller {
         controller.process();
     }
 
-    private Player registerPlayer() {
+    private Player readPlayer() {
         casinoOutputView.printRegisterPlayerInfo();
         return casinoInputView.readPlayerInfo();
     }

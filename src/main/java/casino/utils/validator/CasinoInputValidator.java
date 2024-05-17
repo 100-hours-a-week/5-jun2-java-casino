@@ -49,6 +49,9 @@ public class CasinoInputValidator {
         if (!isNumeric(cash)) {
             throw new IllegalArgumentException(ERROR_PREFIX + " 숫자가 아닌 다른 형식은 입력할 수 없습니다.\n");
         }
+
+        // TO-DO
+        // 자본 500원 단위로 받는게 편할 것 같다?
     }
 
     private static void validateCashRange(int cash) {
