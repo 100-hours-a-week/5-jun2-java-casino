@@ -74,7 +74,7 @@
     - Pair : 최초 두 장의 카드가 같은 숫자가 나오는 것
     - 베팅액의 11배를 지급 받음
 4. `Player's Rule` , `Banker's Rule`
-   ![image](https://github.com/junseoparkk/5-jun2-java-casino/assets/98972385/4dcb5a23-9eba-4888-9c5c-311796968fc2)
+    - ![image](https://github.com/junseoparkk/5-jun2-java-casino/assets/98972385/4dcb5a23-9eba-4888-9c5c-311796968fc2)
 5. `Fortune 6` 이 당첨된 경우
     - Fortune 8 : 뱅커의 카드 합이 6으로 이긴 경우
     - 카드가 2장일 경우 베팅액의 12배, 3장일 경우 20배 지급

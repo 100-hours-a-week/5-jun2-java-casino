@@ -1,7 +1,10 @@
 package casino;
 
+import casino.controller.CasinoController;
+
 public class CasinoApplication {
     public static void main(String[] args) {
-        // TO-DO 프로그램 구현
+        CasinoController casinoController = new CasinoController();
+        casinoController.process();
     }
 }
