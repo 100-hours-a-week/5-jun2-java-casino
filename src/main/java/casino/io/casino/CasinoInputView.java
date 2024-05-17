@@ -29,20 +29,36 @@ public class CasinoInputView {
     }
 
     public Player readPlayerInfo() {
-        try {
-            String name = readLine(REQUEST_PLAYER_NAME);
-            String cash = readLine(REQUEST_PLAYER_CASH);
-            CasinoInputValidator.validatePlayerInfo(name, cash);
-            return new Player(name, RoleType.PLAYER, Long.parseLong(cash));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return readPlayerInfo();
-        }
+        String name = readName();
+        Long cash = readCash();
+        return new Player(name, RoleType.PLAYER, cash);
     }
 
     private String readLine(String message) {
         System.out.println(message);
         System.out.print(CONSOLE_SYMBOL);
         return scanner.nextLine();
+    }
+
+    private String readName() {
+        try {
+            String name = readLine(REQUEST_PLAYER_NAME);
+            CasinoInputValidator.validatePlayerName(name);
+            return name;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return readName();
+        }
+    }
+
+    private Long readCash() {
+        try {
+            String cash = readLine(REQUEST_PLAYER_CASH);
+            CasinoInputValidator.validatePlayerCash(cash);
+            return Long.parseLong(cash);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return readCash();
+        }
     }
 }
