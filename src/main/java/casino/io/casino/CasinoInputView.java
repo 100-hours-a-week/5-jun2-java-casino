@@ -33,7 +33,6 @@ public class CasinoInputView {
             String name = readLine(REQUEST_PLAYER_NAME);
             String cash = readLine(REQUEST_PLAYER_CASH);
             CasinoInputValidator.validatePlayerInfo(name, cash);
-
             return new Player(name, RoleType.PLAYER, Long.parseLong(cash));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

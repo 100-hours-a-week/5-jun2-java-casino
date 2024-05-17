@@ -32,7 +32,7 @@ public class CasinoOutputView {
     public void printEndMessage() {
         printBlankLine();
         System.out.println("==================================");
-        System.out.println("|     감사합니다. 안녕히 가십시오.   |  ");
+        System.out.println("|      감사합니다. 안녕히 가십시오.     |");
         System.out.println("==================================");
     }
 
