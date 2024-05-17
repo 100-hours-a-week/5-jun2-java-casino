@@ -4,7 +4,8 @@ import casino.controller.CasinoController;
 
 public class CasinoApplication {
     public static void main(String[] args) {
-        CasinoController casinoController = new CasinoController();
+        CasinoConfig casinoConfig = new CasinoConfig();
+        CasinoController casinoController = new CasinoController(casinoConfig);
         casinoController.process();
     }
 }

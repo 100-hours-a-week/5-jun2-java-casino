@@ -1,10 +1,7 @@
-package casino.view.casino;
+package casino.io.casino;
 
 public class CasinoOutputView {
-    private CasinoOutputView() {
-    }
-
-    public static void printGreet() {
+    public void printGreet() {
         System.out.print("\n"
                 + " _    _        _                                 _              ___                _____   _____              _                _ \n"
                 + "| |  | |      | |                               | |            |_  |              / __  \\ /  __ \\            (_)              | |\n"
@@ -16,18 +13,34 @@ public class CasinoOutputView {
                 + "                                                                                                                                 \n");
     }
 
-    public static void printMainOption() {
-        System.out.println("### 카지노 메인 화면 ###");
+    public void printMainOption() {
+        System.out.println("!! 카지노에 입장하셨습니다 !!");
+        System.out.println("==================================");
+        System.out.println("|          카지노 메인 화면          |");
+        System.out.println("==================================");
         System.out.println("1. 환전소");
         System.out.println("2. 카지노 게임");
         System.out.println("Q. 종료");
     }
 
-    public static void printBlankLine() {
+    public void printRegisterPlayerInfo() {
+        System.out.println("==================================");
+        System.out.println("|          플레이어 등록 화면         |");
+        System.out.println("==================================");
+    }
+
+    public void printEndMessage() {
+        printBlankLine();
+        System.out.println("==================================");
+        System.out.println("|     감사합니다. 안녕히 가십시오.   |  ");
+        System.out.println("==================================");
+    }
+
+    public void printBlankLine() {
         System.out.println();
     }
 
-    public static void printException(String exceptionMessage) {
+    public void printException(String exceptionMessage) {
         System.out.println(exceptionMessage);
         printBlankLine();
     }
