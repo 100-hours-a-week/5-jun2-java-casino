@@ -2,7 +2,7 @@ package casino.controller;
 
 import casino.domain.options.MainOption;
 import casino.utils.InputHandler;
-import com.sun.tools.javac.Main;
+import casino.view.casino.CasinoOutputView;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -25,7 +25,7 @@ public class CasinoController implements Controller {
     }
 
     private void greeting() {
-        // 환영 메시지 출력 로직
+        CasinoOutputView.printGreet();
     }
 
     private void initializeControllers() {
