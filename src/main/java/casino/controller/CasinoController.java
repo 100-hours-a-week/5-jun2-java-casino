@@ -3,20 +3,24 @@ package casino.controller;
 import casino.CasinoConfig;
 import casino.domain.options.MainOption;
 import casino.domain.participant.Player;
+import casino.domain.participant.RoleType;
 import casino.io.casino.CasinoInputView;
 import casino.io.casino.CasinoOutputView;
+import casino.service.casino.CasinoMainService;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CasinoController implements Controller {
     private final CasinoInputView casinoInputView;
     private final CasinoOutputView casinoOutputView;
+    private final CasinoMainService casinoMainService;
     private final Map<MainOption, Controller> controllers = new LinkedHashMap<>();
 
     public CasinoController(CasinoConfig casinoConfig) {
         initializeControllers();
         casinoInputView = casinoConfig.casinoInputView();
         casinoOutputView = casinoConfig.casinoOutputView();
+        casinoMainService = casinoConfig.casinoMainService();
     }
 
     @Override
@@ -25,6 +29,8 @@ public class CasinoController implements Controller {
 
         casinoOutputView.printGreet();
         Player player = registerPlayer();
+        casinoMainService.saveParticipant(player);
+        System.out.println(casinoMainService.findParticipantByRoleType(RoleType.PLAYER).toString());
 
         do {
             casinoOutputView.printBlankLine();
