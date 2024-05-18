@@ -1,12 +1,34 @@
 package casino.domain.participant;
 
+import casino.domain.casino.ChipType;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
 public class Player extends Participant {
     private long cash;
-    // TO-DO
-    // EnumMap 으로 칩 관리
+    private EnumMap<ChipType, Integer> chips = new EnumMap<>(ChipType.class);
 
     public Player(String name, RoleType roleType, long cash) {
         super(name, roleType);
         this.cash = cash;
+        initializeChips();
+    }
+
+    public long getCashBalance() {
+        return cash;
+    }
+
+    public Map<ChipType, Integer> getChipsBalance() {
+        // 원본에 접근하여 변경할 수 없도록 구현해야 함 -> unmodifiable
+        return Collections.unmodifiableMap(new EnumMap<>(chips));
+    }
+
+    private void initializeChips() {
+        List<ChipType> types = List.of(ChipType.values());
+        for (ChipType type : types) {
+            chips.put(type, 0);
+        }
     }
 }
