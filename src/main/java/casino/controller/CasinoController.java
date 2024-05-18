@@ -1,5 +1,7 @@
 package casino.controller;
 
+import static casino.domain.options.MainOption.*;
+
 import casino.CasinoConfig;
 import casino.domain.options.MainOption;
 import casino.domain.participant.Player;
@@ -39,12 +41,12 @@ public class CasinoController implements Controller {
     }
 
     private void initializeControllers(CasinoConfig casinoConfig) {
-        controllers.put(MainOption.CURRENCY_EXCHANGE, new ExchangeController(casinoConfig));
-        controllers.put(MainOption.CASINO_GAME, new CasinoGameController());
+        controllers.put(CURRENCY_EXCHANGE, new ExchangeController(casinoConfig));
+        controllers.put(CASINO_GAME, new CasinoGameController());
     }
 
     private void processController(MainOption mainOption) {
-        if (mainOption == MainOption.QUIT) {
+        if (mainOption == QUIT) {
             casinoOutputView.printEndMessage();
             return;
         }

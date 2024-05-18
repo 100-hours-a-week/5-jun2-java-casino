@@ -1,5 +1,7 @@
 package casino.controller;
 
+import static casino.domain.options.ExchangeOption.*;
+
 import casino.CasinoConfig;
 import casino.domain.casino.ChipType;
 import casino.domain.options.ExchangeOption;
@@ -42,10 +44,12 @@ public class ExchangeController implements Controller {
     private void processService(ExchangeOption option) {
         Player findPlayer = findPlayer();
         // 옵션에 따른 환전 로직
-        if (option == ExchangeOption.CHECK_ACCOUNT) {
+        if (option == CHECK_ACCOUNT) {
             checkAccountBalanceService(findPlayer);
-        } else if (option == ExchangeOption.CASH_TO_CHIP) {
+        } else if (option == CASH_TO_CHIP) {
             exchangeCashToChipService(findPlayer);
+        } else if (option == CHIP_TO_CASH) {
+            exchangeChipToCashService(findPlayer);
         }
     }
 
@@ -70,4 +74,7 @@ public class ExchangeController implements Controller {
         }
     }
 
+    private void exchangeChipToCashService(Player player) {
+
+    }
 }
