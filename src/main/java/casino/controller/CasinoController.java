@@ -3,7 +3,6 @@ package casino.controller;
 import casino.CasinoConfig;
 import casino.domain.options.MainOption;
 import casino.domain.participant.Player;
-import casino.domain.participant.RoleType;
 import casino.io.casino.CasinoInputView;
 import casino.io.casino.CasinoOutputView;
 import casino.service.casino.CasinoMainService;
@@ -17,7 +16,7 @@ public class CasinoController implements Controller {
     private final Map<MainOption, Controller> controllers = new LinkedHashMap<>();
 
     public CasinoController(CasinoConfig casinoConfig) {
-        initializeControllers();
+        initializeControllers(casinoConfig);
         casinoInputView = casinoConfig.casinoInputView();
         casinoOutputView = casinoConfig.casinoOutputView();
         casinoMainService = casinoConfig.casinoMainService();
@@ -39,8 +38,8 @@ public class CasinoController implements Controller {
         } while (mainOption.isContinue());
     }
 
-    private void initializeControllers() {
-        controllers.put(MainOption.CURRENCY_EXCHANGE, new CurrencyExchangeController());
+    private void initializeControllers(CasinoConfig casinoConfig) {
+        controllers.put(MainOption.CURRENCY_EXCHANGE, new ExchangeController(casinoConfig));
         controllers.put(MainOption.CASINO_GAME, new CasinoGameController());
     }
 
