@@ -2,8 +2,8 @@ package casino.io.exchange;
 
 import casino.domain.casino.ChipType;
 import casino.dto.AccountBalanceInfoDto;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class ExchangeOutputView {
     public void printExchangeOption() {
@@ -12,8 +12,8 @@ public class ExchangeOutputView {
         System.out.println("|          환전소 메인 화면          |");
         System.out.println("==================================");
         System.out.println("1. 보유 잔액 확인");
-        System.out.println("2. 보유 현금 코인화 (현금 -> 코인)");
-        System.out.println("3. 보유 코인 현금화 (코인 -> 현금)");
+        System.out.println("2. 보유 현금 칩 교환 (현금 -> 칩)");
+        System.out.println("3. 보유 칩 현금 교환 (칩 -> 현금)");
         System.out.println("Q. 나가기");
     }
 
@@ -34,7 +34,22 @@ public class ExchangeOutputView {
         printBlankLine();
     }
 
+    public void printExchangeCashToChips() {
+        printBlankLine();
+        System.out.println("==================================");
+        System.out.println("|    보유 현금 칩 교환 (현금 -> 칩)    |");
+        System.out.println("==================================");
+        printChipsInfo();
+    }
+
     public void printBlankLine() {
         System.out.println();
+    }
+
+    private void printChipsInfo() {
+        List<ChipType> types = List.of(ChipType.values());
+        for (ChipType type : types) {
+            System.out.println(type.getName() + " - " + type.getKrw() + " 원");
+        }
     }
 }
