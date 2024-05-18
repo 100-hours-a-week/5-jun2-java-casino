@@ -30,7 +30,7 @@ public class ExchangeInputView {
         }
     }
 
-    public Map<ChipType, Integer> readExchangeCashToChips() {
+    public Map<ChipType, Integer> readExchangeChips() {
         try {
             String input = readLine(REQUEST_CASH_TO_CHIPS_MESSAGE);
             ExchangeInputValidator.validateExchangeCashToChips(input);
@@ -38,7 +38,7 @@ public class ExchangeInputView {
             return ChipType.generateInfoByCounts(counts);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return readExchangeCashToChips();
+            return readExchangeChips();
         }
     }
 

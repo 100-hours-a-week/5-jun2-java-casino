@@ -33,8 +33,12 @@ public class Player extends Participant {
         }
     }
 
-    public void updateChipCount(ChipType type, int count) {
-        chips.replace(type, chips.get(type) + count);
+    public void updateChipCount(boolean isPlus, ChipType type, int count) {
+        if (isPlus) {
+            chips.replace(type, chips.get(type) + count);
+        } else {
+            chips.replace(type, chips.get(type) - count);
+        }
     }
 
     private void initializeChips() {

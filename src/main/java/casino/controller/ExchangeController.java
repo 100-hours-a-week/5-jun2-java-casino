@@ -46,10 +46,8 @@ public class ExchangeController implements Controller {
         // 옵션에 따른 환전 로직
         if (option == CHECK_ACCOUNT) {
             checkAccountBalanceService(findPlayer);
-        } else if (option == CASH_TO_CHIP) {
-            exchangeCashToChipService(findPlayer);
-        } else if (option == CHIP_TO_CASH) {
-            exchangeChipToCashService(findPlayer);
+        } else if (option == CHIP_TO_CASH || option == CASH_TO_CHIP) {
+            exchangeService(option, findPlayer);
         }
     }
 
@@ -62,19 +60,21 @@ public class ExchangeController implements Controller {
         exchangeOutputView.printAccountBalanceInfo(info);
     }
 
-    private void exchangeCashToChipService(Player findPlayer) {
-        exchangeOutputView.printExchangeCashToChips();
+    private void exchangeService(ExchangeOption option, Player findPlayer) {
         long cash = findPlayer.getCashBalance();
-        Map<ChipType, Integer> chips = exchangeInputView.readExchangeCashToChips();
 
         try {
-            exchangeService.exchangeCashToChips(findPlayer, new AccountBalanceInfoDto(cash, chips));
+            if (option == CASH_TO_CHIP) {
+                exchangeOutputView.printExchangeCashToChips();
+                Map<ChipType, Integer> chips = exchangeInputView.readExchangeChips();
+                exchangeService.exchangeCashToChips(findPlayer, new AccountBalanceInfoDto(cash, chips));
+            } else if (option == CHIP_TO_CASH) {
+                exchangeOutputView.printExchangeChipsToCash();
+                Map<ChipType, Integer> chips = exchangeInputView.readExchangeChips();
+                exchangeService.exchangeChipsToCash(findPlayer, new AccountBalanceInfoDto(cash, chips));
+            }
         } catch (IllegalArgumentException e) {
             exchangeOutputView.printException(e.getMessage());
         }
-    }
-
-    private void exchangeChipToCashService(Player player) {
-
     }
 }

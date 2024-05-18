@@ -31,13 +31,20 @@ public class ExchangeOutputView {
                     + entry.getValue() + " 개";
             System.out.println(result);
         }
-        printBlankLine();
     }
 
     public void printExchangeCashToChips() {
         printBlankLine();
         System.out.println("==================================");
         System.out.println("|    보유 현금 칩 교환 (현금 -> 칩)    |");
+        System.out.println("==================================");
+        printChipsInfo();
+    }
+
+    public void printExchangeChipsToCash() {
+        printBlankLine();
+        System.out.println("==================================");
+        System.out.println("|      보유 칩 교환 (칩 -> 현금)      |");
         System.out.println("==================================");
         printChipsInfo();
     }
