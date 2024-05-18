@@ -25,6 +25,18 @@ public class Player extends Participant {
         return Collections.unmodifiableMap(new EnumMap<>(chips));
     }
 
+    public void updateCash(boolean isPlus, long amount) {
+        if (isPlus) {
+            cash += amount;
+        } else {
+            cash -= amount;
+        }
+    }
+
+    public void updateChipCount(ChipType type, int count) {
+        chips.replace(type, chips.get(type) + count);
+    }
+
     private void initializeChips() {
         List<ChipType> types = List.of(ChipType.values());
         for (ChipType type : types) {

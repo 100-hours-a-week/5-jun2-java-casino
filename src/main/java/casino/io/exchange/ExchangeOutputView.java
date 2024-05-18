@@ -46,6 +46,10 @@ public class ExchangeOutputView {
         System.out.println();
     }
 
+    public void printException(String exceptionMessage) {
+        System.out.println(exceptionMessage);
+    }
+
     private void printChipsInfo() {
         List<ChipType> types = List.of(ChipType.values());
         for (ChipType type : types) {

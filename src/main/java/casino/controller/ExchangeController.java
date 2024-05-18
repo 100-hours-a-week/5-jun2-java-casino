@@ -43,17 +43,31 @@ public class ExchangeController implements Controller {
         Player findPlayer = findPlayer();
         // 옵션에 따른 환전 로직
         if (option == ExchangeOption.CHECK_ACCOUNT) {
-            AccountBalanceInfoDto info = exchangeService.findAccountBalanceInfo(findPlayer);
-            exchangeOutputView.printAccountBalanceInfo(info);
+            checkAccountBalanceService(findPlayer);
         } else if (option == ExchangeOption.CASH_TO_CHIP) {
-            exchangeOutputView.printExchangeCashToChips();
-            long cash = findPlayer.getCashBalance();
-            Map<ChipType, Integer> chips = exchangeInputView.readExchangeCashToChips();
-            exchangeService.exchangeCashToChips(findPlayer, new AccountBalanceInfoDto(cash, chips));
+            exchangeCashToChipService(findPlayer);
         }
     }
 
     private Player findPlayer() {
         return (Player) casinoMainService.findParticipantByRoleType(RoleType.PLAYER);
     }
+
+    private void checkAccountBalanceService(Player findPlayer) {
+        AccountBalanceInfoDto info = exchangeService.findAccountBalanceInfo(findPlayer);
+        exchangeOutputView.printAccountBalanceInfo(info);
+    }
+
+    private void exchangeCashToChipService(Player findPlayer) {
+        exchangeOutputView.printExchangeCashToChips();
+        long cash = findPlayer.getCashBalance();
+        Map<ChipType, Integer> chips = exchangeInputView.readExchangeCashToChips();
+
+        try {
+            exchangeService.exchangeCashToChips(findPlayer, new AccountBalanceInfoDto(cash, chips));
+        } catch (IllegalArgumentException e) {
+            exchangeOutputView.printException(e.getMessage());
+        }
+    }
+
 }
