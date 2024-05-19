@@ -1,12 +1,18 @@
 package casino.io.game;
 
 import casino.domain.option.GameOption;
+import casino.domain.type.ChipType;
+import casino.domain.type.GameType;
+import casino.utils.Util;
 import casino.utils.validator.GameInputValidator;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class GameInputView {
     private static final String REQUEST_GAME_MESSAGE = "참여를 원하는 게임을 선택하세요.";
     private static final String REQUEST_SLOT_MACHINE_PAYMENT = "슬롯 머신 1회 결제 금액은 5,000원 입니다. 결제하시겠습니까? [Y/N]";
+    private static final String REQUEST_ROULETTE_CHIP = "%s 게임에 베팅할 칩 개수를 쉼표(,)로 구분하여 입력해주세요. ex) 1, 0, 2, 0, 0, 0";
     private static final String REQUEST_RETRY_GAME = "다시 플레이 하시겠습니까? [Y/N]";
     private static final String CONSOLE_SYMBOL = ">> ";
     private final Scanner scanner;
@@ -36,6 +42,18 @@ public class GameInputView {
         }
     }
 
+    public Map<ChipType, Integer> readBetChips(GameType gameType) {
+        try {
+            String input = readLineChips(gameType.getName());
+            GameInputValidator.validateRouletteChip(input);
+            List<Integer> counts = Util.splitByComma(input);
+            return ChipType.generateInfoByCounts(counts);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return readBetChips(gameType);
+        }
+    }
+
     public boolean readRetryGame() {
         try {
             String retry = readLine(REQUEST_RETRY_GAME);
@@ -56,6 +74,12 @@ public class GameInputView {
 
     private String readLine(String message) {
         System.out.println(message);
+        System.out.print(CONSOLE_SYMBOL);
+        return scanner.nextLine();
+    }
+
+    private String readLineChips(String game) {
+        System.out.printf(REQUEST_ROULETTE_CHIP + "\n", game);
         System.out.print(CONSOLE_SYMBOL);
         return scanner.nextLine();
     }
