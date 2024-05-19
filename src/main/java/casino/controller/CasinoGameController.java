@@ -38,6 +38,7 @@ public class CasinoGameController implements Controller {
     private void playGame(GameOption gameOption) {
         Player player = (Player) casinoMainService.findParticipantByRoleType(RoleType.PLAYER);
         Game game = gameService.generateGame(gameOption.getType(), player);
+        gameOutputView.printGameGreet(gameOption.getType());
 
         if (gameOption == GameOption.SLOT_MACHINE) {
             playSlotMachine(game, player);
@@ -51,6 +52,7 @@ public class CasinoGameController implements Controller {
     }
 
     private void playSlotMachine(Game game, Player player) {
+        gameService.playSlotMachine(game, player);
     }
 
     private void playRoulette(Game game, Player player) {
