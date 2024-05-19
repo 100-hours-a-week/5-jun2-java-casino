@@ -42,14 +42,19 @@ public class CasinoGameController implements Controller {
         Game game = gameService.generateGame(gameOption.getType(), player);
         gameOutputView.printGameGreet(gameOption.getType());
 
-        if (gameOption == GameOption.SLOT_MACHINE) {
-            playSlotMachine(game, player);
-        } else if (gameOption == GameOption.ROULETTE) {
-            playRoulette(game, player);
-        } else if (gameOption == GameOption.BLACKJACK) {
-            playBlackjack(game, player);
-        } else if (gameOption == GameOption.BACCARAT) {
-            playBaccarat(game, player);
+        try {
+            if (gameOption == GameOption.SLOT_MACHINE) {
+                playSlotMachine(game, player);
+            } else if (gameOption == GameOption.ROULETTE) {
+                playRoulette(game, player);
+            } else if (gameOption == GameOption.BLACKJACK) {
+                playBlackjack(game, player);
+            } else if (gameOption == GameOption.BACCARAT) {
+                playBaccarat(game, player);
+            }
+        } catch (Exception e) {
+            gameOutputView.printException(e.getMessage());
+            return;
         }
     }
 

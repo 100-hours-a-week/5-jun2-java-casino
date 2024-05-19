@@ -60,7 +60,6 @@ public class GameOutputView {
 
     public void printException(String exceptionMessage) {
         System.out.println(exceptionMessage);
-        printBlankLine();
     }
 
     private void printNumbers(int[] numbers) {
