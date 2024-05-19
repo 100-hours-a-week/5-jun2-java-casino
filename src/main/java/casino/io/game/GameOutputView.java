@@ -1,38 +1,20 @@
 package casino.io.game;
 
+import static casino.io.game.GameAsciiMessage.BACCARAT_GREET;
+import static casino.io.game.GameAsciiMessage.BLACKJACK_GREET;
+import static casino.io.game.GameAsciiMessage.ROULETTE_GREET;
+import static casino.io.game.GameAsciiMessage.SLOT_MACHINE_GREET;
+import static casino.io.game.GameAsciiMessage.STRAIGHT_DOWN;
+import static casino.io.game.GameAsciiMessage.STRAIGHT_UP;
+
+import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.type.GameType;
+import casino.dto.SlotMachineGameResultDto;
 
 public class GameOutputView {
-    private static final String SLOT_MACHINE_GREET = "\n"
-            + " _____  _         _    ___  ___              _      _              \n"
-            + "/  ___|| |       | |   |  \\/  |             | |    (_)             \n"
-            + "\\ `--. | |  ___  | |_  | .  . |  __ _   ___ | |__   _  _ __    ___ \n"
-            + " `--. \\| | / _ \\ | __| | |\\/| | / _` | / __|| '_ \\ | || '_ \\  / _ \\\n"
-            + "/\\__/ /| || (_) || |_  | |  | || (_| || (__ | | | || || | | ||  __/\n"
-            + "\\____/ |_| \\___/  \\__| \\_|  |_/ \\__,_| \\___||_| |_||_||_| |_| \\___|\n";
-
-    private static final String ROULETTE_GREET = "______                _        _    _         \n"
-            + "| ___ \\              | |      | |  | |        \n"
-            + "| |_/ /  ___   _   _ | |  ___ | |_ | |_   ___ \n"
-            + "|    /  / _ \\ | | | || | / _ \\| __|| __| / _ \\\n"
-            + "| |\\ \\ | (_) || |_| || ||  __/| |_ | |_ |  __/\n"
-            + "\\_| \\_| \\___/  \\__,_||_| \\___| \\__| \\__| \\___|\n";
-
-    private static final String BLACKJACK_GREET = "______  _               _       _               _    \n"
-            + "| ___ \\| |             | |     (_)             | |   \n"
-            + "| |_/ /| |  __ _   ___ | | __   _   __ _   ___ | | __\n"
-            + "| ___ \\| | / _` | / __|| |/ /  | | / _` | / __|| |/ /\n"
-            + "| |_/ /| || (_| || (__ |   <   | || (_| || (__ |   < \n"
-            + "\\____/ |_| \\__,_| \\___||_|\\_\\  | | \\__,_| \\___||_|\\_\\\n"
-            + "                              _/ |                   \n"
-            + "                             |__/       ";
-
-    private static final String BACCARAT_GREET = "______                                         _   \n"
-            + "| ___ \\                                       | |  \n"
-            + "| |_/ /  __ _   ___   ___   __ _  _ __   __ _ | |_ \n"
-            + "| ___ \\ / _` | / __| / __| / _` || '__| / _` || __|\n"
-            + "| |_/ /| (_| || (__ | (__ | (_| || |   | (_| || |_ \n"
-            + "\\____/  \\__,_| \\___| \\___| \\__,_||_|    \\__,_| \\__|";
+    private static final String TOP_LINE = "┌ ─ ┐";
+    private static final String MIDDLE_FORMAT = "| %d |";
+    private static final String BOTTOM_LINE = "└ ─ ┘";
 
     public void printGameOption() {
         System.out.println("!! 카지노 게임장에 입장하셨습니다 !!");
@@ -48,14 +30,28 @@ public class GameOutputView {
 
     public void printGameGreet(GameType type) {
         if (type == GameType.SLOT_MACHINE) {
-            System.out.println(SLOT_MACHINE_GREET);
+            System.out.println(SLOT_MACHINE_GREET.getMessage());
         } else if (type == GameType.ROULETTE) {
-            System.out.println(ROULETTE_GREET);
+            System.out.println(ROULETTE_GREET.getMessage());
         } else if (type == GameType.BLACKJACK) {
-            System.out.println(BLACKJACK_GREET);
+            System.out.println(BLACKJACK_GREET.getMessage());
         } else if (type == GameType.BACCARAT) {
-            System.out.println(BACCARAT_GREET);
+            System.out.println(BACCARAT_GREET.getMessage());
         }
+    }
+
+    public void printSlotMachineResult(SlotMachineGameResultDto dto) {
+        if (dto.result() == SlotMachineResult.JACKPOT_SEVEN) {
+            System.out.println(GameAsciiMessage.JACKPOT_SEVEN.getMessage());
+        } else if (dto.result() == SlotMachineResult.JACKPOT) {
+            System.out.println(GameAsciiMessage.JACKPOT.getMessage());
+        } else if (dto.result() == SlotMachineResult.STRAIGHT_UP) {
+            System.out.println(STRAIGHT_UP.getMessage());
+        } else if (dto.result() == SlotMachineResult.STRAIGHT_DOWN) {
+            System.out.println(STRAIGHT_DOWN.getMessage());
+        }
+        printNumbers(dto.numbers());
+        System.out.println("[ 당첨금 ] : " + dto.result().getWinningAmount() + " 원");
     }
 
     public void printBlankLine() {
@@ -64,6 +60,34 @@ public class GameOutputView {
 
     public void printException(String exceptionMessage) {
         System.out.println(exceptionMessage);
+        printBlankLine();
+    }
+
+    private void printNumbers(int[] numbers) {
+        int size = numbers.length;
+        printTopLine(size);
+        printMiddleLine(numbers);
+        printBottomLine(size);
+    }
+
+    private void printTopLine(int size) {
+        for (int i = 0; i < size; i++) {
+            System.out.print(TOP_LINE);
+        }
+        printBlankLine();
+    }
+
+    private void printMiddleLine(int[] numbers) {
+        for (int number : numbers) {
+            System.out.printf(MIDDLE_FORMAT, number);
+        }
+        printBlankLine();
+    }
+
+    private void printBottomLine(int size) {
+        for (int i = 0; i < size; i++) {
+            System.out.print(BOTTOM_LINE);
+        }
         printBlankLine();
     }
 }
