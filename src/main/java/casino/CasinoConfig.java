@@ -12,6 +12,8 @@ import casino.service.casino.CasinoMainService;
 import casino.service.casino.CasinoMainServiceImpl;
 import casino.service.exchange.ExchangeService;
 import casino.service.exchange.ExchangeServiceImpl;
+import casino.service.game.GameService;
+import casino.service.game.GameServiceImpl;
 import java.util.Scanner;
 
 public class CasinoConfig {
@@ -55,6 +57,10 @@ public class CasinoConfig {
 
     public ExchangeService exchangeService() {
         return new ExchangeServiceImpl();
+    }
+
+    public GameService gameService() {
+        return new GameServiceImpl();
     }
 
     private Scanner scanner() {

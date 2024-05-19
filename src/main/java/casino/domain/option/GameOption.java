@@ -27,4 +27,8 @@ public enum GameOption {
     public boolean isContinue() {
         return this != QUIT;
     }
+
+    public GameType getType() {
+        return type;
+    }
 }

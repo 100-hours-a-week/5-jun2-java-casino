@@ -1,22 +1,26 @@
 package casino.controller;
 
 import casino.CasinoConfig;
+import casino.domain.game.Game;
 import casino.domain.option.GameOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
 import casino.io.game.GameInputView;
 import casino.io.game.GameOutputView;
 import casino.service.casino.CasinoMainService;
+import casino.service.game.GameService;
 
 public class CasinoGameController implements Controller {
     private final GameInputView gameInputView;
     private final GameOutputView gameOutputView;
     private final CasinoMainService casinoMainService;
+    private final GameService gameService;
 
     public CasinoGameController(CasinoConfig casinoConfig) {
         this.gameInputView = casinoConfig.gameInputView();
         this.gameOutputView = casinoConfig.gameOutputView();
         this.casinoMainService = casinoConfig.casinoMainService();
+        this.gameService = casinoConfig.gameService();
     }
 
     @Override
@@ -33,28 +37,29 @@ public class CasinoGameController implements Controller {
 
     private void playGame(GameOption gameOption) {
         Player player = (Player) casinoMainService.findParticipantByRoleType(RoleType.PLAYER);
+        Game game = gameService.generateGame(gameOption.getType(), player);
 
         if (gameOption == GameOption.SLOT_MACHINE) {
-            playSlotMachine(player);
+            playSlotMachine(game, player);
         } else if (gameOption == GameOption.ROULETTE) {
-            playRoulette(player);
+            playRoulette(game, player);
         } else if (gameOption == GameOption.BLACKJACK) {
-            playBlackjack(player);
+            playBlackjack(game, player);
         } else if (gameOption == GameOption.BACCARAT) {
-            playBaccarat(player);
+            playBaccarat(game, player);
         }
     }
 
-    private void playSlotMachine(Player player) {
+    private void playSlotMachine(Game game, Player player) {
     }
 
-    private void playRoulette(Player player) {
+    private void playRoulette(Game game, Player player) {
     }
 
-    private void playBlackjack(Player player) {
+    private void playBlackjack(Game game, Player player) {
     }
 
-    private void playBaccarat(Player player) {
+    private void playBaccarat(Game game, Player player) {
 
     }
 }
