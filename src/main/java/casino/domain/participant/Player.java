@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Player extends Participant {
     private long cash;
-    private EnumMap<ChipType, Integer> chips = new EnumMap<>(ChipType.class);
+    private final EnumMap<ChipType, Integer> chips = new EnumMap<>(ChipType.class);
 
     public Player(String name, RoleType roleType, long cash) {
         super(name, roleType);
@@ -41,10 +41,46 @@ public class Player extends Participant {
         }
     }
 
+    public void validateChipsToPlay(Map<ChipType, Integer> betChipsInfo) {
+        List<Integer> playerChips = chips.values().stream().toList();
+        List<Integer> betChips = betChipsInfo.values().stream().toList();
+
+        validateChipSize(playerChips.size(), betChips.size());
+        validateBetChipCount(playerChips, betChips);
+        validateChipsIsAllZero(betChips);
+    }
+
     private void initializeChips() {
         List<ChipType> types = List.of(ChipType.values());
         for (ChipType type : types) {
             chips.put(type, 0);
+        }
+    }
+
+    private void validateChipSize(int playerChipSize, int betChipSize) {
+        if (playerChipSize != betChipSize) {
+            throw new IllegalStateException("[ERROR] 올바르지 않은 칩 갯수입니다.");
+        }
+    }
+
+    private void validateBetChipCount(List<Integer> playerChips, List<Integer> betChips) {
+        for (int i = 0; i < playerChips.size(); i++) {
+            if (playerChips.get(i) < betChips.get(i)) {
+                throw new IllegalArgumentException("[ERROR] 베팅하고자 하는 칩 갯수가 부족합니다.");
+            }
+        }
+    }
+
+    private void validateChipsIsAllZero(List<Integer> betChips) {
+        boolean isAllZero = true;
+        for (Integer betChip : betChips) {
+            if (betChip != 0) {
+                isAllZero = false;
+                break;
+            }
+        }
+        if (isAllZero) {
+            throw new IllegalArgumentException("[ERROR] 칩을 베팅해야 게임에 참가할 수 있습니다.");
         }
     }
 }

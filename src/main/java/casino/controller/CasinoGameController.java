@@ -6,11 +6,14 @@ import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.option.GameOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
+import casino.domain.type.ChipType;
+import casino.domain.type.GameType;
 import casino.dto.SlotMachineGameResultDto;
 import casino.io.game.GameInputView;
 import casino.io.game.GameOutputView;
 import casino.service.casino.CasinoMainService;
 import casino.service.game.GameService;
+import java.util.Map;
 
 public class CasinoGameController implements Controller {
     private final GameInputView gameInputView;
@@ -82,6 +85,15 @@ public class CasinoGameController implements Controller {
     }
 
     private void playRoulette(Game game, Player player) {
+        Map<ChipType, Integer> betChips = gameInputView.readBetChips(GameType.ROULETTE);
+        if (!game.isPlay()) {
+            game.changeStatus();
+        }
+
+        while (game.isPlay()) {
+            player.validateChipsToPlay(betChips);
+            game.changeStatus();
+        }
     }
 
     private void playBlackjack(Game game, Player player) {
