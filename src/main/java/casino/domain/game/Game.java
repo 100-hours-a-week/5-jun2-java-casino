@@ -18,4 +18,12 @@ public class Game {
     public boolean isPlay() {
         return status.isPlay();
     }
+
+    public void changeStatus() {
+        if (status == GameStatus.STOP) {
+            status = GameStatus.PLAY;
+        } else {
+            status = GameStatus.STOP;
+        }
+    }
 }
