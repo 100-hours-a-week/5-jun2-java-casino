@@ -52,7 +52,9 @@ public class CasinoGameController implements Controller {
     }
 
     private void playSlotMachine(Game game, Player player) {
-        gameService.playSlotMachine(game, player);
+        while (game.isPlay()) {
+            gameService.playSlotMachine(game, player);
+        }
     }
 
     private void playRoulette(Game game, Player player) {

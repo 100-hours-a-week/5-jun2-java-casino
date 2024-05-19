@@ -1,5 +1,8 @@
 package casino.service.game;
 
+import static casino.domain.type.GameStatus.*;
+import static casino.domain.type.GameType.*;
+
 import casino.domain.game.BaccaratGame;
 import casino.domain.game.BlackjackGame;
 import casino.domain.game.Game;
@@ -11,17 +14,17 @@ import casino.domain.type.GameType;
 public class GameServiceImpl implements GameService {
     @Override
     public Game generateGame(GameType type, Player player) {
-        if (type == GameType.SLOT_MACHINE) {
-            return new SlotMachineGame(type, player);
+        if (type == SLOT_MACHINE) {
+            return new SlotMachineGame(type, player, PLAY);
         }
-        if (type == GameType.ROULETTE) {
-            return new RouletteGame(type, player);
+        if (type == ROULETTE) {
+            return new RouletteGame(type, player, PLAY);
         }
-        if (type == GameType.BLACKJACK) {
-            return new BlackjackGame(type, player);
+        if (type == BLACKJACK) {
+            return new BlackjackGame(type, player, PLAY);
         }
-        if (type == GameType.BACCARAT) {
-            return new BaccaratGame(type, player);
+        if (type == BACCARAT) {
+            return new BaccaratGame(type, player, PLAY);
         }
         throw new IllegalArgumentException("[ERROR] 존재하지 않는 게임입니다.\n");
     }
