@@ -1,5 +1,8 @@
 package casino.domain.game.slotmachine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum SlotMachineResult {
     // 777
     JACKPOT_SEVEN("잭팟 세븐", 10000000),
@@ -9,7 +12,10 @@ public enum SlotMachineResult {
 
     // 오름차순으로 연속된 숫자인 경우
     STRAIGHT_UP("스트레이트 업", 500000),
+
+    // 내림차순으로 연속된 숫자인 경우
     STRAIGHT_DOWN("스트레이트 다운", 100000),
+
     NONE("없음", 0);
 
     private final String name;
@@ -34,6 +40,10 @@ public enum SlotMachineResult {
             return STRAIGHT_DOWN;
         }
         return NONE;
+    }
+
+    public long getWinningAmount() {
+        return winningAmount;
     }
 
     private static boolean isJackPotSeven(int[] resultNumbers) {

@@ -2,9 +2,11 @@ package casino.controller;
 
 import casino.CasinoConfig;
 import casino.domain.game.Game;
+import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.option.GameOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
+import casino.dto.SlotMachineGameResultDto;
 import casino.io.game.GameInputView;
 import casino.io.game.GameOutputView;
 import casino.service.casino.CasinoMainService;
@@ -52,8 +54,25 @@ public class CasinoGameController implements Controller {
     }
 
     private void playSlotMachine(Game game, Player player) {
+        boolean playGame = gameInputView.readSlotMachinePayment();
+
+        if (playGame && !game.isPlay()) {
+            game.changeStatus();
+        }
+        if (!playGame) {
+            return;
+        }
         while (game.isPlay()) {
-            gameService.playSlotMachine(game, player);
+            SlotMachineGameResultDto result = gameService.playSlotMachine(game, player);
+            gameOutputView.printSlotMachineResult(result);
+
+            boolean retry = gameInputView.readRetryGame();
+            if (retry) {
+                playSlotMachine(game, player);
+            } else {
+                game.changeStatus();
+                return;
+            }
         }
     }
 
