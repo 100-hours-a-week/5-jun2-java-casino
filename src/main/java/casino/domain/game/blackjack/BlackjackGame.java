@@ -1,5 +1,6 @@
-package casino.domain.game;
+package casino.domain.game.blackjack;
 
+import casino.domain.game.CardGame;
 import casino.domain.participant.Player;
 import casino.domain.type.GameStatus;
 import casino.domain.type.GameType;

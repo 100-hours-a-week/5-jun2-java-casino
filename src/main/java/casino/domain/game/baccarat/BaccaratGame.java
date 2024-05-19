@@ -1,4 +1,4 @@
-package casino.domain.game;
+package casino.domain.game.baccarat;
 
 import casino.domain.game.CardGame;
 import casino.domain.participant.Player;

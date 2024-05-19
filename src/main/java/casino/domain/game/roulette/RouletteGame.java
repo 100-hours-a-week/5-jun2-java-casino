@@ -1,4 +1,4 @@
-package casino.domain.game;
+package casino.domain.game.roulette;
 
 import casino.domain.game.Game;
 import casino.domain.participant.Player;
