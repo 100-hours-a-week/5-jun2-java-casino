@@ -1,4 +1,4 @@
-package casino.domain.casino;
+package casino.domain.type;
 
 public enum CardType {
     SPADE("스페이드", "\u2660"),

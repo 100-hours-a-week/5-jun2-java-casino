@@ -1,4 +1,4 @@
-package casino.domain.options;
+package casino.domain.option;
 
 import java.util.Arrays;
 

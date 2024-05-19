@@ -1,4 +1,4 @@
-package casino.domain.casino;
+package casino.domain.type;
 
 import java.util.EnumMap;
 import java.util.List;

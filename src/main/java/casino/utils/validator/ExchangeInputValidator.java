@@ -1,7 +1,7 @@
 package casino.utils.validator;
 
-import casino.domain.casino.ChipType;
-import casino.domain.options.ExchangeOption;
+import casino.domain.type.ChipType;
+import casino.domain.option.ExchangeOption;
 import casino.utils.Util;
 import java.util.List;
 

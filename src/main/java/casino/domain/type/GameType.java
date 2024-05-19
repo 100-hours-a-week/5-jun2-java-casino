@@ -1,4 +1,4 @@
-package casino.domain.casino;
+package casino.domain.type;
 
 public enum GameType {
     SLOT_MACHINE("슬롯 머신"),

@@ -1,11 +1,10 @@
 package casino.controller;
 
-import static casino.domain.options.ExchangeOption.*;
+import static casino.domain.option.ExchangeOption.*;
 
 import casino.CasinoConfig;
-import casino.domain.casino.ChipType;
-import casino.domain.options.ExchangeOption;
-import casino.domain.participant.Participant;
+import casino.domain.type.ChipType;
+import casino.domain.option.ExchangeOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
 import casino.dto.AccountBalanceInfoDto;
@@ -13,7 +12,6 @@ import casino.io.exchange.ExchangeInputView;
 import casino.io.exchange.ExchangeOutputView;
 import casino.service.casino.CasinoMainService;
 import casino.service.exchange.ExchangeService;
-import java.util.List;
 import java.util.Map;
 
 public class ExchangeController implements Controller {

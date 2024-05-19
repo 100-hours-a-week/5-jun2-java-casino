@@ -1,6 +1,6 @@
 package casino.io.game;
 
-import casino.domain.options.GameOption;
+import casino.domain.option.GameOption;
 import casino.utils.validator.GameInputValidator;
 import java.util.Scanner;
 

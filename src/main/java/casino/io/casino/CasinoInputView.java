@@ -1,6 +1,6 @@
 package casino.io.casino;
 
-import casino.domain.options.MainOption;
+import casino.domain.option.MainOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
 import casino.utils.validator.CasinoInputValidator;

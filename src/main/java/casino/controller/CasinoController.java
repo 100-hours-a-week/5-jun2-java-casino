@@ -1,9 +1,9 @@
 package casino.controller;
 
-import static casino.domain.options.MainOption.*;
+import static casino.domain.option.MainOption.*;
 
 import casino.CasinoConfig;
-import casino.domain.options.MainOption;
+import casino.domain.option.MainOption;
 import casino.domain.participant.Player;
 import casino.io.casino.CasinoInputView;
 import casino.io.casino.CasinoOutputView;

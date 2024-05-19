@@ -1,9 +1,8 @@
 package casino.io.exchange;
 
-import casino.domain.casino.ChipType;
-import casino.domain.options.ExchangeOption;
+import casino.domain.type.ChipType;
+import casino.domain.option.ExchangeOption;
 import casino.utils.Util;
-import casino.utils.validator.CasinoInputValidator;
 import casino.utils.validator.ExchangeInputValidator;
 import java.util.List;
 import java.util.Map;

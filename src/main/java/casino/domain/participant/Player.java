@@ -1,6 +1,6 @@
 package casino.domain.participant;
 
-import casino.domain.casino.ChipType;
+import casino.domain.type.ChipType;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;

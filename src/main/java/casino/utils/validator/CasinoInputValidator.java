@@ -1,6 +1,6 @@
 package casino.utils.validator;
 
-import casino.domain.options.MainOption;
+import casino.domain.option.MainOption;
 
 public class CasinoInputValidator {
     private static final String ERROR_PREFIX = "[ERROR]";

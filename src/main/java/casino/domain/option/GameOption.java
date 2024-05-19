@@ -1,6 +1,6 @@
-package casino.domain.options;
+package casino.domain.option;
 
-import casino.domain.casino.GameType;
+import casino.domain.type.GameType;
 import java.util.Arrays;
 
 public enum GameOption {

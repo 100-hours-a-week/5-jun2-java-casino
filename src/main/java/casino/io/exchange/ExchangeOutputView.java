@@ -1,6 +1,6 @@
 package casino.io.exchange;
 
-import casino.domain.casino.ChipType;
+import casino.domain.type.ChipType;
 import casino.dto.AccountBalanceInfoDto;
 import java.util.List;
 import java.util.Map;
