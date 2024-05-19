@@ -42,7 +42,7 @@ public class CasinoController implements Controller {
 
     private void initializeControllers(CasinoConfig casinoConfig) {
         controllers.put(CURRENCY_EXCHANGE, new ExchangeController(casinoConfig));
-        controllers.put(CASINO_GAME, new CasinoGameController());
+        controllers.put(CASINO_GAME, new CasinoGameController(casinoConfig));
     }
 
     private void processController(MainOption mainOption) {

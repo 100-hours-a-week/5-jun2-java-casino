@@ -4,6 +4,8 @@ import casino.io.casino.CasinoInputView;
 import casino.io.casino.CasinoOutputView;
 import casino.io.exchange.ExchangeInputView;
 import casino.io.exchange.ExchangeOutputView;
+import casino.io.game.GameInputView;
+import casino.io.game.GameOutputView;
 import casino.repository.CasinoMainRepository;
 import casino.repository.CasinoRepository;
 import casino.service.casino.CasinoMainService;
@@ -30,6 +32,14 @@ public class CasinoConfig {
 
     public ExchangeInputView exchangeInputView() {
         return new ExchangeInputView(scanner());
+    }
+
+    public GameOutputView gameOutputView() {
+        return new GameOutputView();
+    }
+
+    public GameInputView gameInputView() {
+        return new GameInputView(scanner());
     }
 
     /**

@@ -4,7 +4,8 @@ public enum GameType {
     SLOT_MACHINE("슬롯 머신"),
     ROULETTE("룰렛"),
     BLACKJACK("블랙잭"),
-    BACCARAT("바카라");
+    BACCARAT("바카라"),
+    NONE("없음");
 
     private final String name;
 
