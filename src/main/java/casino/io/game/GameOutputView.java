@@ -51,7 +51,7 @@ public class GameOutputView {
             System.out.println(STRAIGHT_DOWN.getMessage());
         }
         printNumbers(dto.numbers());
-        System.out.println("[ 당첨금 ] : " + dto.result().getWinningAmount() + " 원");
+        System.out.println("[ 당첨금 ] : " + String.format("%,d", dto.result().getWinningAmount()) + " 원");
     }
 
     public void printBlankLine() {
