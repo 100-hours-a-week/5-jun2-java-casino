@@ -74,32 +74,32 @@ public class GameServiceImpl implements GameService {
             if (winningNumber == betNumber) {
                 giveWinningAmount(player, betChips, betType);
                 long totalWinningAmount = calculateWinningAmount(betChips, betType);
-                return new RouletteGameResultDto(winningNumber, totalWinningAmount);
+                return new RouletteGameResultDto(winningNumber, totalWinningAmount, betType);
             }
         } else if (betType == SPLIT_BET) {
             if (winningNumber == betNumber || winningNumber == betNumber + 1) {
                 giveWinningAmount(player, betChips, betType);
                 long totalWinningAmount = calculateWinningAmount(betChips, betType);
-                return new RouletteGameResultDto(winningNumber, totalWinningAmount);
+                return new RouletteGameResultDto(winningNumber, totalWinningAmount, betType);
             }
         } else if (betType == STREET_BET) {
             if (betNumber <= winningNumber && winningNumber <= betNumber + 2) {
                 giveWinningAmount(player, betChips, betType);
                 long totalWinningAmount = calculateWinningAmount(betChips, betType);
-                return new RouletteGameResultDto(winningNumber, totalWinningAmount);
+                return new RouletteGameResultDto(winningNumber, totalWinningAmount, betType);
             }
         } else if (betType == SQUARE_BET) {
             if (winningNumber == betNumber || winningNumber == betNumber + 1
                     || winningNumber == betNumber + 3 || winningNumber == betNumber + 4) {
                 giveWinningAmount(player, betChips, betType);
                 long totalWinningAmount = calculateWinningAmount(betChips, betType);
-                return new RouletteGameResultDto(winningNumber, totalWinningAmount);
+                return new RouletteGameResultDto(winningNumber, totalWinningAmount, betType);
             }
         } else if (betType == FIVE_NUMBER_BET) {
             if (winningNumber == 1 || winningNumber == 2 || winningNumber == 3 || winningNumber == 0) {
                 giveWinningAmount(player, betChips, betType);
                 long totalWinningAmount = calculateWinningAmount(betChips, betType);
-                return new RouletteGameResultDto(winningNumber, totalWinningAmount);
+                return new RouletteGameResultDto(winningNumber, totalWinningAmount, betType);
             }
         }
         return playRouletteWithOption(betType, winningNumber, info, player);
@@ -160,7 +160,7 @@ public class GameServiceImpl implements GameService {
                 if (winningNumber == number) {
                     giveWinningAmount(player, betChips, betType);
                     long totalWinningAmount = calculateWinningAmount(betChips, betType);
-                    return new RouletteGameResultDto(winningNumber, totalWinningAmount);
+                    return new RouletteGameResultDto(winningNumber, totalWinningAmount, betType);
                 }
             }
         } else if (betType == DOZEN_BET) {
@@ -208,8 +208,8 @@ public class GameServiceImpl implements GameService {
         if (isWin) {
             giveWinningAmount(player, betChips, betType);
             long totalWinningAmount = calculateWinningAmount(betChips, betType);
-            return new RouletteGameResultDto(winningNumber, totalWinningAmount);
+            return new RouletteGameResultDto(winningNumber, totalWinningAmount, betType);
         }
-        return new RouletteGameResultDto(winningNumber, 0);
+        return new RouletteGameResultDto(winningNumber, 0, betType);
     }
 }

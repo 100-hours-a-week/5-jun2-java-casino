@@ -23,4 +23,13 @@ public enum RouletteColorType {
         }
         return NONE;
     }
+
+    public static String findColorNameByNumber(int number) {
+        if (RED.numbers.contains(number)) {
+            return "RED";
+        } else if (BLACK.numbers.contains(number)) {
+            return "BLACK";
+        }
+        return "NONE";
+    }
 }

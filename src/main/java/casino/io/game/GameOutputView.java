@@ -9,10 +9,14 @@ import static casino.io.game.GameAsciiMessage.STRAIGHT_DOWN;
 import static casino.io.game.GameAsciiMessage.STRAIGHT_UP;
 
 import casino.domain.game.roulette.RouletteBetType;
+import casino.domain.game.roulette.RouletteColorType;
 import casino.domain.game.slotmachine.SlotMachineResult;
+import casino.domain.type.ChipType;
 import casino.domain.type.GameType;
+import casino.dto.RouletteGameResultDto;
 import casino.dto.SlotMachineGameResultDto;
 import java.util.List;
+import java.util.Map;
 
 public class GameOutputView {
     private static final String TOP_LINE = "┌ ─ ┐";
@@ -57,6 +61,16 @@ public class GameOutputView {
         System.out.println("[ 당첨금 ] : " + String.format("%,d", dto.result().getWinningAmount()) + " 원");
     }
 
+    public void printPlayerChips(Map<ChipType, Integer> chips) {
+        System.out.println("============================== 플레이어 보유 칩 ==============================");
+        for (Map.Entry<ChipType, Integer> entry : chips.entrySet()) {
+            ChipType type = entry.getKey();
+            int count = entry.getValue();
+            System.out.print("[" + type.name() + "]:" + count + " ");
+        }
+        printBlankLine();
+    }
+
     public void printRouletteBetType() {
         List<RouletteBetType> types = List.of(values());
         System.out.println("==========================================================================");
@@ -88,6 +102,13 @@ public class GameOutputView {
             System.out.println("[1] Black Number 에 베팅 (0을 제외한 모든 검정색 번호)");
             System.out.println("[2] Red Number 에 베팅 (0을 제외한 모든 빨간색 번호)");
         }
+    }
+
+    public void printRouletteGameResult(RouletteGameResultDto dto) {
+        String numberColor = RouletteColorType.findColorNameByNumber(dto.winningNumber());
+        RouletteBetType betType = dto.betType();
+        System.out.println("[당첨 번호] : " + dto.winningNumber() + " [" + numberColor + "]");
+        System.out.println("[당첨 환산 금액] : " + String.format("%,d", dto.totalWinningAmount()) + " 원 (x" + betType.getDividendMultiple() + "배)");
     }
 
     public void printBlankLine() {

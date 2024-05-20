@@ -89,6 +89,7 @@ public class CasinoGameController implements Controller {
     }
 
     private void playRoulette(Game game, Player player) {
+        gameOutputView.printPlayerChips(player.getChipsBalance());
         Map<ChipType, Integer> betChips = gameInputView.readBetChips(GameType.ROULETTE);
         if (!game.isPlay()) {
             game.changeStatus();
@@ -122,7 +123,6 @@ public class CasinoGameController implements Controller {
             int optionNumber = gameInputView.readRouletteBetOptionNumber(betType);
             dto = gameService.playRoulette(new RouletteBetInfoDto(betType, 0, optionNumber, betChips), game, player);
         }
-        System.out.println(dto.winningNumber());
-        System.out.println(dto.totalWinningAmount());
+        gameOutputView.printRouletteGameResult(dto);
     }
 }
