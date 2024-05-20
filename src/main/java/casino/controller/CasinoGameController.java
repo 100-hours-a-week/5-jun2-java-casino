@@ -11,6 +11,7 @@ import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
 import casino.domain.type.ChipType;
 import casino.domain.type.GameType;
+import casino.dto.RouletteBetInfoDto;
 import casino.dto.SlotMachineGameResultDto;
 import casino.io.game.GameInputView;
 import casino.io.game.GameOutputView;
@@ -110,14 +111,14 @@ public class CasinoGameController implements Controller {
 
     private void playRouletteByBetType(RouletteBetType betType, Game game, Player player, Map<ChipType, Integer> betChips) {
         if (betType == FIVE_NUMBER_BET) {
-            gameService.playRoulette(betType, game, player);
+            gameService.playRoulette(new RouletteBetInfoDto(betType, 0, 0, betChips), game, player);
         } else if (betType.requireOnlyNumber()) {
             int betNumber = gameInputView.readRouletteBetNumber(betType);
-            System.out.println(betNumber);
+            gameService.playRoulette(new RouletteBetInfoDto(betType, betNumber, 0, betChips), game, player);
         } else {
             gameOutputView.printRouletteBetOptions(betType);
             int optionNumber = gameInputView.readRouletteBetOptionNumber(betType);
-            System.out.println(optionNumber);
+            gameService.playRoulette(new RouletteBetInfoDto(betType, 0, optionNumber, betChips), game, player);
         }
     }
 }

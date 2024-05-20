@@ -12,6 +12,7 @@ import casino.domain.game.slotmachine.SlotMachineGame;
 import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.participant.Player;
 import casino.domain.type.GameType;
+import casino.dto.RouletteBetInfoDto;
 import casino.dto.SlotMachineGameResultDto;
 
 
@@ -52,7 +53,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void playRoulette(RouletteBetType betType, Game game, Player player) {
+    public void playRoulette(RouletteBetInfoDto info, Game game, Player player) {
 
     }
 
