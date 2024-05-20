@@ -36,6 +36,10 @@ public enum RouletteBetType {
         return values().length;
     }
 
+    public boolean requireOnlyNumber() {
+        return this.typeNumber <= 4;
+    }
+
     public int getTypeNumber() {
         return typeNumber;
     }

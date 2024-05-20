@@ -6,6 +6,7 @@ import static casino.domain.type.GameType.*;
 import casino.domain.game.baccarat.BaccaratGame;
 import casino.domain.game.blackjack.BlackjackGame;
 import casino.domain.game.Game;
+import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.game.roulette.RouletteGame;
 import casino.domain.game.slotmachine.SlotMachineGame;
 import casino.domain.game.slotmachine.SlotMachineResult;
@@ -51,7 +52,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void playRoulette(Game game, Player player) {
+    public void playRoulette(RouletteBetType betType, Game game, Player player) {
 
     }
 

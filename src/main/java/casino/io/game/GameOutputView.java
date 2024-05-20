@@ -68,6 +68,9 @@ public class GameOutputView {
         System.out.println("==========================================================================");
     }
 
+    public void printRouletteBetOptions(RouletteBetType betType) {
+    }
+
     public void printBlankLine() {
         System.out.println();
     }

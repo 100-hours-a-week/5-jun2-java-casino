@@ -1,5 +1,7 @@
 package casino.controller;
 
+import static casino.domain.game.roulette.RouletteBetType.*;
+
 import casino.CasinoConfig;
 import casino.domain.game.Game;
 import casino.domain.game.roulette.RouletteBetType;
@@ -94,7 +96,7 @@ public class CasinoGameController implements Controller {
             player.validateChipsToPlay(betChips);
             gameOutputView.printRouletteBetType();
             RouletteBetType betType = gameInputView.readRouletteBetType();
-
+            playRouletteByBetType(betType, game, player);
             game.changeStatus();
         }
     }
@@ -104,5 +106,15 @@ public class CasinoGameController implements Controller {
 
     private void playBaccarat(Game game, Player player) {
 
+    }
+
+    private void playRouletteByBetType(RouletteBetType betType, Game game, Player player) {
+        if (betType == FIVE_NUMBER_BET) {
+            gameService.playRoulette(betType, game, player);
+        } else if (betType.requireOnlyNumber()) {
+            int betNumber = gameInputView.readRouletteBetNumber(betType);
+        } else {
+            gameOutputView.printRouletteBetOptions(betType);
+        }
     }
 }
