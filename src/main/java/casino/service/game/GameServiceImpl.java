@@ -21,7 +21,10 @@ import casino.dto.RouletteGameResultDto;
 import casino.dto.SlotMachineGameResultDto;
 import java.util.Map;
 
-
+/**
+ *  게임별로 서비스를 분리하여 만들고 싶었지만 과제에 비해 과한 것 같아서 하나의 서비스로 통합 (이미 클래스 40개 넘어감)
+ *  -> 만약 리팩토링을 한다면 게임별로 컨트롤러, 서비스를 구분하여 개발할 것
+ */
 public class GameServiceImpl implements GameService {
     private static final int SLOT_MACHINE_PRICE = 5000;
 
@@ -144,7 +147,7 @@ public class GameServiceImpl implements GameService {
         return totalWinningAmount;
     }
 
-    // 하드코딩 값 수정해야 함
+    // 리팩토링시 하드코딩 값 수정해야 함 ex) RouletteGameConstants
     private RouletteGameResultDto playRouletteWithOption(
             RouletteBetType betType,
             int winningNumber,

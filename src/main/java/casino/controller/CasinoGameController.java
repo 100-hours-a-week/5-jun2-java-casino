@@ -20,6 +20,12 @@ import casino.service.casino.CasinoMainService;
 import casino.service.game.GameService;
 import java.util.Map;
 
+/**
+ *  리팩토링시 게임 종류별로 컨트롤러 및 서비스, I/O 로직 분리 -> 해당 클래스가 너무 많은 책임을 가짐
+ *  단순히 종류에 따른 게임 실행 기능을 하는 것이 역할 (라우팅 개념)
+ *  1. 컨트롤러에서 input 로직 의존성 분리 -> Request 레이어로 분리하는 방법?
+ *  2. 게임 종류별 컨트롤러를 호출하고, 비즈니스 로직은 서비스 레이어에 위임하도록 구현
+ */
 public class CasinoGameController implements Controller {
     private final GameInputView gameInputView;
     private final GameOutputView gameOutputView;
