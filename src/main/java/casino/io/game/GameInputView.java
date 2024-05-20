@@ -1,5 +1,6 @@
 package casino.io.game;
 
+import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.option.GameOption;
 import casino.domain.type.ChipType;
 import casino.domain.type.GameType;
@@ -13,6 +14,7 @@ public class GameInputView {
     private static final String REQUEST_GAME_MESSAGE = "참여를 원하는 게임을 선택하세요.";
     private static final String REQUEST_SLOT_MACHINE_PAYMENT = "슬롯 머신 1회 결제 금액은 5,000원 입니다. 결제하시겠습니까? [Y/N]";
     private static final String REQUEST_ROULETTE_CHIP = "%s 게임에 베팅할 칩 개수를 쉼표(,)로 구분하여 입력해주세요. ex) 1, 0, 2, 0, 0, 0";
+    private static final String REQUEST_ROULETTE_BET_TYPE = "베팅 옵션을 선택해주세요. 옵션별로 배당금이 다릅니다.";
     private static final String REQUEST_RETRY_GAME = "다시 플레이 하시겠습니까? [Y/N]";
     private static final String CONSOLE_SYMBOL = ">> ";
     private final Scanner scanner;
@@ -51,6 +53,17 @@ public class GameInputView {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return readBetChips(gameType);
+        }
+    }
+
+    public RouletteBetType readRouletteBetType() {
+        try {
+            String input = readLine(REQUEST_ROULETTE_BET_TYPE);
+            GameInputValidator.validateRouletteBetType(input);
+            return RouletteBetType.from(Integer.parseInt(input));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return readRouletteBetType();
         }
     }
 

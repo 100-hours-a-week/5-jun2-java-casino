@@ -7,9 +7,11 @@ import static casino.io.game.GameAsciiMessage.SLOT_MACHINE_GREET;
 import static casino.io.game.GameAsciiMessage.STRAIGHT_DOWN;
 import static casino.io.game.GameAsciiMessage.STRAIGHT_UP;
 
+import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.type.GameType;
 import casino.dto.SlotMachineGameResultDto;
+import java.util.List;
 
 public class GameOutputView {
     private static final String TOP_LINE = "┌ ─ ┐";
@@ -52,6 +54,18 @@ public class GameOutputView {
         }
         printNumbers(dto.numbers());
         System.out.println("[ 당첨금 ] : " + String.format("%,d", dto.result().getWinningAmount()) + " 원");
+    }
+
+    public void printRouletteBetType() {
+        List<RouletteBetType> types = List.of(RouletteBetType.values());
+        System.out.println("==========================================================================");
+        for (int i = 0; i < types.size() - 1; i++) {
+            int typeNumber = types.get(i).getTypeNumber();
+            String explanation = types.get(i).getExplanation();
+            int dividendMultiple = types.get(i).getDividendMultiple();
+            System.out.println("[" + typeNumber + "] " + explanation + " : [배당금] 베팅 금액의 " + dividendMultiple + " 배");
+        }
+        System.out.println("==========================================================================");
     }
 
     public void printBlankLine() {

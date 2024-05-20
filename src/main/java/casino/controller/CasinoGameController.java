@@ -2,6 +2,7 @@ package casino.controller;
 
 import casino.CasinoConfig;
 import casino.domain.game.Game;
+import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.option.GameOption;
 import casino.domain.participant.Player;
@@ -57,7 +58,6 @@ public class CasinoGameController implements Controller {
             }
         } catch (Exception e) {
             gameOutputView.printException(e.getMessage());
-            return;
         }
     }
 
@@ -92,6 +92,9 @@ public class CasinoGameController implements Controller {
 
         while (game.isPlay()) {
             player.validateChipsToPlay(betChips);
+            gameOutputView.printRouletteBetType();
+            RouletteBetType betType = gameInputView.readRouletteBetType();
+            System.out.println(betType);
             game.changeStatus();
         }
     }

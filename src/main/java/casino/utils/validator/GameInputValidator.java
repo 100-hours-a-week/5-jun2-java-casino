@@ -34,6 +34,11 @@ public class GameInputValidator {
         validateChipsRange(input);
     }
 
+    public static void validateRouletteBetType(String input) {
+        validateIsNumeric(input);
+        validateIsValidOption(input);
+    }
+
     private static void validateChipsRegex(String input) {
         try {
             List<Integer> splitInput = Util.splitByComma(input);
@@ -51,6 +56,21 @@ public class GameInputValidator {
             if (count < 0) {
                 throw new IllegalArgumentException(ERROR_PREFIX + " 개수는 0이상의 양수를 입력해주세요. \n");
             }
+        }
+    }
+
+    private static void validateIsNumeric(String input) {
+        try {
+            Integer.parseInt(input);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(ERROR_PREFIX + " 숫자의 형식으로 입력해주세요. \n");
+        }
+    }
+
+    private static void validateIsValidOption(String input) {
+        int option = Integer.parseInt(input);
+        if (option < 1 || option > 11) {
+            throw new IllegalArgumentException(ERROR_PREFIX + " 존재하지 않는 배팅 옵션입니다. \n");
         }
     }
 }
