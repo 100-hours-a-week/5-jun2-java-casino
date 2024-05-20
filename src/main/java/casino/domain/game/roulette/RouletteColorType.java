@@ -15,7 +15,7 @@ public enum RouletteColorType {
         this.numbers = numbers;
     }
 
-    public RouletteColorType findColorByNumber(int number) {
+    public static RouletteColorType findColorByNumber(int number) {
         if (RED.numbers.contains(number)) {
             return RED;
         } else if (BLACK.numbers.contains(number)) {
