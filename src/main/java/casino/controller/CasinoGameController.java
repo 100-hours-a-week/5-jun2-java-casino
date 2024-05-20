@@ -94,7 +94,7 @@ public class CasinoGameController implements Controller {
             player.validateChipsToPlay(betChips);
             gameOutputView.printRouletteBetType();
             RouletteBetType betType = gameInputView.readRouletteBetType();
-            System.out.println(betType);
+
             game.changeStatus();
         }
     }

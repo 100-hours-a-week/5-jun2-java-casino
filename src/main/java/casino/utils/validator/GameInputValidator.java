@@ -1,5 +1,7 @@
 package casino.utils.validator;
 
+import casino.domain.game.roulette.RouletteBetType;
+import casino.domain.game.roulette.RouletteColorType;
 import casino.domain.option.GameOption;
 import casino.domain.type.ChipType;
 import casino.utils.Util;
@@ -69,7 +71,7 @@ public class GameInputValidator {
 
     private static void validateIsValidOption(String input) {
         int option = Integer.parseInt(input);
-        if (option < 1 || option > 11) {
+        if (option < 1 || option > RouletteBetType.getRouletteBetTypeSize() - 1) {
             throw new IllegalArgumentException(ERROR_PREFIX + " 존재하지 않는 배팅 옵션입니다. \n");
         }
     }
