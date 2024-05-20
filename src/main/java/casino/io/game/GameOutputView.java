@@ -1,5 +1,6 @@
 package casino.io.game;
 
+import static casino.domain.game.roulette.RouletteBetType.*;
 import static casino.io.game.GameAsciiMessage.BACCARAT_GREET;
 import static casino.io.game.GameAsciiMessage.BLACKJACK_GREET;
 import static casino.io.game.GameAsciiMessage.ROULETTE_GREET;
@@ -57,7 +58,7 @@ public class GameOutputView {
     }
 
     public void printRouletteBetType() {
-        List<RouletteBetType> types = List.of(RouletteBetType.values());
+        List<RouletteBetType> types = List.of(values());
         System.out.println("==========================================================================");
         for (int i = 0; i < types.size() - 1; i++) {
             int typeNumber = types.get(i).getTypeNumber();
@@ -69,6 +70,24 @@ public class GameOutputView {
     }
 
     public void printRouletteBetOptions(RouletteBetType betType) {
+        if (betType == COLUMN_BET) {
+            System.out.println("[1] 1열 숫자에 베팅 (1, 4, 7, 19, 13, 16, 19, 22, 25, 28, 31, 34)");
+            System.out.println("[2] 2열 숫자에 베팅 (2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35)");
+            System.out.println("[3] 3열 숫자에 베팅 (3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36)");
+        } else if (betType == DOZEN_BET) {
+            System.out.println("[1] '1st 12' 에 베팅 (1 ~ 12 사이의 번호)");
+            System.out.println("[2] '2nd 12' 에 베팅 (13 ~ 24 사이의 번호)");
+            System.out.println("[3] '3rd 12' 에 베팅 (25 ~ 26 사이의 번호)");
+        } else if (betType == HIGH_LOW_NUMBER_BET) {
+            System.out.println("[1] Low Number 에 베팅 (1 ~ 18 사이의 번호)");
+            System.out.println("[2] High Number 에 베팅 (19 ~ 36 사이의 번호)");
+        } else if (betType == EVEN_ODD_NUMBER_BET) {
+            System.out.println("[1] Even Number 에 베팅 (0을 제외한 모든 짝수 번호)");
+            System.out.println("[2] Odd Number 에 베팅 (0을 제외한 모든 홀수 번호)");
+        } else {
+            System.out.println("[1] Black Number 에 베팅 (0을 제외한 모든 검정색 번호)");
+            System.out.println("[2] Red Number 에 베팅 (0을 제외한 모든 빨간색 번호)");
+        }
     }
 
     public void printBlankLine() {

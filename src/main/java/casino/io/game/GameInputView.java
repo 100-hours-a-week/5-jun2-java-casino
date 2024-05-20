@@ -109,6 +109,23 @@ public class GameInputView {
         }
     }
 
+    public int readRouletteBetOptionNumber(RouletteBetType betType) {
+        try {
+            if (betType == COLUMN_BET || betType == DOZEN_BET) {
+                String input = readLine(REQUEST_THREE_OPTIONS.getMessage());
+                GameInputValidator.validateThreeOptionNumbers(input);
+                return Integer.parseInt(input);
+            } else {
+                String input = readLine(REQUEST_TWO_OPTIONS.getMessage());
+                GameInputValidator.validateTwoOptionNumbers(input);
+                return Integer.parseInt(input);
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return readRouletteBetOptionNumber(betType);
+        }
+    }
+
     private String readLine(String message) {
         System.out.println(message);
         System.out.print(CONSOLE_SYMBOL.getMessage());

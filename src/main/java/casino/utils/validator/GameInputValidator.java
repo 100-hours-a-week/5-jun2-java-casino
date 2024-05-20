@@ -60,6 +60,22 @@ public class GameInputValidator {
             throw new IllegalArgumentException(ERROR_PREFIX + " 3으로 나눈 나머지가 1인 숫자 하나에 베팅해주세요.\n");
         }
     }
+    public static void validateThreeOptionNumbers(String input) {
+        validateIsNumeric(input);
+        int number = Integer.parseInt(input);
+        if (number != 1 && number != 2 && number != 3) {
+            throw new IllegalArgumentException(ERROR_PREFIX +" 1, 2, 3 중 하나의 숫자만 입력해주세요.\n");
+        }
+    }
+
+    public static void validateTwoOptionNumbers(String input) {
+        validateIsNumeric(input);
+        int number = Integer.parseInt(input);
+        if (number != 1 && number != 2) {
+            throw new IllegalArgumentException(ERROR_PREFIX +" 1, 2 중 하나의 숫자만 입력해주세요.\n");
+        }
+    }
+
 
     private static void validateChipsRegex(String input) {
         try {

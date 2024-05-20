@@ -96,7 +96,7 @@ public class CasinoGameController implements Controller {
             player.validateChipsToPlay(betChips);
             gameOutputView.printRouletteBetType();
             RouletteBetType betType = gameInputView.readRouletteBetType();
-            playRouletteByBetType(betType, game, player);
+            playRouletteByBetType(betType, game, player, betChips);
             game.changeStatus();
         }
     }
@@ -108,13 +108,16 @@ public class CasinoGameController implements Controller {
 
     }
 
-    private void playRouletteByBetType(RouletteBetType betType, Game game, Player player) {
+    private void playRouletteByBetType(RouletteBetType betType, Game game, Player player, Map<ChipType, Integer> betChips) {
         if (betType == FIVE_NUMBER_BET) {
             gameService.playRoulette(betType, game, player);
         } else if (betType.requireOnlyNumber()) {
             int betNumber = gameInputView.readRouletteBetNumber(betType);
+            System.out.println(betNumber);
         } else {
             gameOutputView.printRouletteBetOptions(betType);
+            int optionNumber = gameInputView.readRouletteBetOptionNumber(betType);
+            System.out.println(optionNumber);
         }
     }
 }
