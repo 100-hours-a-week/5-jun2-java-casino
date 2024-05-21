@@ -8,6 +8,8 @@ import casino.io.game.GameInputView;
 import casino.io.game.GameOutputView;
 import casino.repository.CasinoMainRepository;
 import casino.repository.CasinoRepository;
+import casino.request.ConsoleRequest;
+import casino.request.Request;
 import casino.service.casino.CasinoMainService;
 import casino.service.casino.CasinoMainServiceImpl;
 import casino.service.exchange.ExchangeService;
@@ -18,7 +20,7 @@ import java.util.Scanner;
 
 public class CasinoConfig {
     /**
-     * I/O Views
+     * I/O Views, Request
      */
     public CasinoOutputView casinoOutputView() {
         return new CasinoOutputView();
@@ -42,6 +44,10 @@ public class CasinoConfig {
 
     public GameInputView gameInputView() {
         return new GameInputView(scanner());
+    }
+
+    public Request request() {
+        return new ConsoleRequest(casinoInputView(), exchangeInputView(), gameInputView());
     }
 
     /**

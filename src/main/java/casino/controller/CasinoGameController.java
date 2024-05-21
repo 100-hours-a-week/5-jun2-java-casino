@@ -5,7 +5,6 @@ import static casino.domain.game.roulette.RouletteBetType.*;
 import casino.CasinoConfig;
 import casino.domain.game.Game;
 import casino.domain.game.roulette.RouletteBetType;
-import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.option.GameOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
@@ -14,8 +13,8 @@ import casino.domain.type.GameType;
 import casino.dto.RouletteBetInfoDto;
 import casino.dto.RouletteGameResultDto;
 import casino.dto.SlotMachineGameResultDto;
-import casino.io.game.GameInputView;
 import casino.io.game.GameOutputView;
+import casino.request.Request;
 import casino.service.casino.CasinoMainService;
 import casino.service.game.GameService;
 import java.util.Map;
@@ -27,13 +26,13 @@ import java.util.Map;
  *  2. 게임 종류별 컨트롤러를 호출하고, 비즈니스 로직은 서비스 레이어에 위임하도록 구현
  */
 public class CasinoGameController implements Controller {
-    private final GameInputView gameInputView;
+    private final Request request;
     private final GameOutputView gameOutputView;
     private final CasinoMainService casinoMainService;
     private final GameService gameService;
 
     public CasinoGameController(CasinoConfig casinoConfig) {
-        this.gameInputView = casinoConfig.gameInputView();
+        this.request = casinoConfig.request();
         this.gameOutputView = casinoConfig.gameOutputView();
         this.casinoMainService = casinoConfig.casinoMainService();
         this.gameService = casinoConfig.gameService();
@@ -46,7 +45,7 @@ public class CasinoGameController implements Controller {
         do {
             gameOutputView.printBlankLine();
             gameOutputView.printGameOption();
-            gameOption = gameInputView.readGameOption();
+            gameOption = request.getGameOption();
             playGame(gameOption);
         } while (gameOption.isContinue());
     }
@@ -72,7 +71,7 @@ public class CasinoGameController implements Controller {
     }
 
     private void playSlotMachine(Game game, Player player) {
-        boolean playGame = gameInputView.readSlotMachinePayment();
+        boolean playGame = request.getSlotMachinePayment();
 
         if (playGame && !game.isPlay()) {
             game.changeStatus();
@@ -84,7 +83,7 @@ public class CasinoGameController implements Controller {
             SlotMachineGameResultDto result = gameService.playSlotMachine(game, player);
             gameOutputView.printSlotMachineResult(result);
 
-            boolean retry = gameInputView.readRetryGame();
+            boolean retry = request.getRetryGame();
             if (retry) {
                 playSlotMachine(game, player);
             } else {
@@ -96,7 +95,7 @@ public class CasinoGameController implements Controller {
 
     private void playRoulette(Game game, Player player) {
         gameOutputView.printPlayerChips(player.getChipsBalance());
-        Map<ChipType, Integer> betChips = gameInputView.readBetChips(GameType.ROULETTE);
+        Map<ChipType, Integer> betChips = request.getBetChips(GameType.ROULETTE);
         if (!game.isPlay()) {
             game.changeStatus();
         }
@@ -104,7 +103,7 @@ public class CasinoGameController implements Controller {
         while (game.isPlay()) {
             player.validateChipsToPlay(betChips);
             gameOutputView.printRouletteBetType();
-            RouletteBetType betType = gameInputView.readRouletteBetType();
+            RouletteBetType betType = request.getRouletteBetType();
             playRouletteByBetType(betType, game, player, betChips);
             game.changeStatus();
         }
@@ -122,11 +121,11 @@ public class CasinoGameController implements Controller {
         if (betType == FIVE_NUMBER_BET) {
             dto = gameService.playRoulette(new RouletteBetInfoDto(betType, 0, 0, betChips), game, player);
         } else if (betType.requireOnlyNumber()) {
-            int betNumber = gameInputView.readRouletteBetNumber(betType);
+            int betNumber = request.getRouletteBetNumber(betType);
             dto = gameService.playRoulette(new RouletteBetInfoDto(betType, betNumber, 0, betChips), game, player);
         } else {
             gameOutputView.printRouletteBetOptions(betType);
-            int optionNumber = gameInputView.readRouletteBetOptionNumber(betType);
+            int optionNumber = request.getRouletteBetOptionNumber(betType);
             dto = gameService.playRoulette(new RouletteBetInfoDto(betType, 0, optionNumber, betChips), game, player);
         }
         gameOutputView.printRouletteGameResult(dto);

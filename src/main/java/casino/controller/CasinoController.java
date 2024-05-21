@@ -5,21 +5,22 @@ import static casino.domain.option.MainOption.*;
 import casino.CasinoConfig;
 import casino.domain.option.MainOption;
 import casino.domain.participant.Player;
-import casino.io.casino.CasinoInputView;
 import casino.io.casino.CasinoOutputView;
+import casino.request.Request;
 import casino.service.casino.CasinoMainService;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+// View -> Response 변경
 public class CasinoController implements Controller {
-    private final CasinoInputView casinoInputView;
+    private final Request request;
     private final CasinoOutputView casinoOutputView;
     private final CasinoMainService casinoMainService;
     private final Map<MainOption, Controller> controllers = new LinkedHashMap<>();
 
     public CasinoController(CasinoConfig casinoConfig) {
         initializeControllers(casinoConfig);
-        casinoInputView = casinoConfig.casinoInputView();
+        request = casinoConfig.request();
         casinoOutputView = casinoConfig.casinoOutputView();
         casinoMainService = casinoConfig.casinoMainService();
     }
@@ -35,7 +36,7 @@ public class CasinoController implements Controller {
         do {
             casinoOutputView.printBlankLine();
             casinoOutputView.printMainOption();
-            mainOption = casinoInputView.readMainOption();
+            mainOption = request.getMainOption();
             processController(mainOption);
         } while (mainOption.isContinue());
     }
@@ -56,6 +57,6 @@ public class CasinoController implements Controller {
 
     private Player readPlayer() {
         casinoOutputView.printRegisterPlayerInfo();
-        return casinoInputView.readPlayerInfo();
+        return request.getPlayerInfo();
     }
 }

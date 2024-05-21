@@ -8,21 +8,21 @@ import casino.domain.option.ExchangeOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
 import casino.dto.AccountBalanceInfoDto;
-import casino.io.exchange.ExchangeInputView;
 import casino.io.exchange.ExchangeOutputView;
+import casino.request.Request;
 import casino.service.casino.CasinoMainService;
 import casino.service.exchange.ExchangeService;
 import java.util.Map;
 
 public class ExchangeController implements Controller {
     private final ExchangeOutputView exchangeOutputView;
-    private final ExchangeInputView exchangeInputView;
+    private final Request request;
     private final ExchangeService exchangeService;
     private final CasinoMainService casinoMainService;
 
     public ExchangeController(CasinoConfig casinoConfig) {
         this.exchangeOutputView = casinoConfig.exchangeOutputView();
-        this.exchangeInputView = casinoConfig.exchangeInputView();
+        this.request = casinoConfig.request();
         this.exchangeService = casinoConfig.exchangeService();
         this.casinoMainService = casinoConfig.casinoMainService();
     }
@@ -34,7 +34,7 @@ public class ExchangeController implements Controller {
         do {
             exchangeOutputView.printBlankLine();
             exchangeOutputView.printExchangeOption();
-            exchangeOption = exchangeInputView.readExchangeOption();
+            exchangeOption = request.getExchangeOption();
             processService(exchangeOption);
         } while (exchangeOption.isContinue());
     }
@@ -64,11 +64,11 @@ public class ExchangeController implements Controller {
         try {
             if (option == CASH_TO_CHIP) {
                 exchangeOutputView.printExchangeCashToChips();
-                Map<ChipType, Integer> chips = exchangeInputView.readExchangeChips();
+                Map<ChipType, Integer> chips = request.getExchangeChips();
                 exchangeService.exchangeCashToChips(findPlayer, new AccountBalanceInfoDto(cash, chips));
             } else if (option == CHIP_TO_CASH) {
                 exchangeOutputView.printExchangeChipsToCash();
-                Map<ChipType, Integer> chips = exchangeInputView.readExchangeChips();
+                Map<ChipType, Integer> chips = request.getExchangeChips();
                 exchangeService.exchangeChipsToCash(findPlayer, new AccountBalanceInfoDto(cash, chips));
             }
         } catch (IllegalArgumentException e) {
