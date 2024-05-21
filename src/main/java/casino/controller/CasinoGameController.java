@@ -27,13 +27,13 @@ import java.util.Map;
  */
 public class CasinoGameController implements Controller {
     private final Request request;
-    private final GameResponse gameOutputView;
+    private final GameResponse gameResponse;
     private final CasinoMainService casinoMainService;
     private final GameService gameService;
 
     public CasinoGameController(CasinoConfig casinoConfig) {
         this.request = casinoConfig.request();
-        this.gameOutputView = casinoConfig.gameOutputView();
+        this.gameResponse = casinoConfig.gameResponse();
         this.casinoMainService = casinoConfig.casinoMainService();
         this.gameService = casinoConfig.gameService();
     }
@@ -43,8 +43,8 @@ public class CasinoGameController implements Controller {
         GameOption gameOption;
 
         do {
-            gameOutputView.printBlankLine();
-            gameOutputView.printGameOption();
+            gameResponse.printBlankLine();
+            gameResponse.printGameOption();
             gameOption = request.getGameOption();
             playGame(gameOption);
         } while (gameOption.isContinue());
@@ -53,7 +53,7 @@ public class CasinoGameController implements Controller {
     private void playGame(GameOption gameOption) {
         Player player = (Player) casinoMainService.findParticipantByRoleType(RoleType.PLAYER);
         Game game = gameService.generateGame(gameOption.getType(), player);
-        gameOutputView.printGameGreet(gameOption.getType());
+        gameResponse.printGameGreet(gameOption.getType());
 
         try {
             if (gameOption == GameOption.SLOT_MACHINE) {
@@ -66,7 +66,7 @@ public class CasinoGameController implements Controller {
                 playBaccarat(game, player);
             }
         } catch (Exception e) {
-            gameOutputView.printException(e.getMessage());
+            gameResponse.printException(e.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ public class CasinoGameController implements Controller {
         }
         while (game.isPlay()) {
             SlotMachineGameResultDto result = gameService.playSlotMachine(game, player);
-            gameOutputView.printSlotMachineResult(result);
+            gameResponse.printSlotMachineResult(result);
 
             boolean retry = request.getRetryGame();
             if (retry) {
@@ -94,7 +94,7 @@ public class CasinoGameController implements Controller {
     }
 
     private void playRoulette(Game game, Player player) {
-        gameOutputView.printPlayerChips(player.getChipsBalance());
+        gameResponse.printPlayerChips(player.getChipsBalance());
         Map<ChipType, Integer> betChips = request.getBetChips(GameType.ROULETTE);
         if (!game.isPlay()) {
             game.changeStatus();
@@ -102,7 +102,7 @@ public class CasinoGameController implements Controller {
 
         while (game.isPlay()) {
             player.validateChipsToPlay(betChips);
-            gameOutputView.printRouletteBetType();
+            gameResponse.printRouletteBetType();
             RouletteBetType betType = request.getRouletteBetType();
             playRouletteByBetType(betType, game, player, betChips);
             game.changeStatus();
@@ -124,10 +124,10 @@ public class CasinoGameController implements Controller {
             int betNumber = request.getRouletteBetNumber(betType);
             dto = gameService.playRoulette(new RouletteBetInfoDto(betType, betNumber, 0, betChips), game, player);
         } else {
-            gameOutputView.printRouletteBetOptions(betType);
+            gameResponse.printRouletteBetOptions(betType);
             int optionNumber = request.getRouletteBetOptionNumber(betType);
             dto = gameService.playRoulette(new RouletteBetInfoDto(betType, 0, optionNumber, betChips), game, player);
         }
-        gameOutputView.printRouletteGameResult(dto);
+        gameResponse.printRouletteGameResult(dto);
     }
 }

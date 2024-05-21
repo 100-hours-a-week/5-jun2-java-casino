@@ -14,14 +14,14 @@ import java.util.Map;
 // View -> Response 변경
 public class CasinoController implements Controller {
     private final Request request;
-    private final CasinoResponse casinoOutputView;
+    private final CasinoResponse casinoResponse;
     private final CasinoMainService casinoMainService;
     private final Map<MainOption, Controller> controllers = new LinkedHashMap<>();
 
     public CasinoController(CasinoConfig casinoConfig) {
         initializeControllers(casinoConfig);
         request = casinoConfig.request();
-        casinoOutputView = casinoConfig.casinoOutputView();
+        casinoResponse = casinoConfig.casinoResponse();
         casinoMainService = casinoConfig.casinoMainService();
     }
 
@@ -29,13 +29,13 @@ public class CasinoController implements Controller {
     public void process() {
         MainOption mainOption;
 
-        casinoOutputView.printGreet();
+        casinoResponse.printGreet();
         Player player = readPlayer();
         casinoMainService.saveParticipant(player);
 
         do {
-            casinoOutputView.printBlankLine();
-            casinoOutputView.printMainOption();
+            casinoResponse.printBlankLine();
+            casinoResponse.printMainOption();
             mainOption = request.getMainOption();
             processController(mainOption);
         } while (mainOption.isContinue());
@@ -48,7 +48,7 @@ public class CasinoController implements Controller {
 
     private void processController(MainOption mainOption) {
         if (mainOption == QUIT) {
-            casinoOutputView.printEndMessage();
+            casinoResponse.printEndMessage();
             return;
         }
         Controller controller = controllers.get(mainOption);
@@ -56,7 +56,7 @@ public class CasinoController implements Controller {
     }
 
     private Player readPlayer() {
-        casinoOutputView.printRegisterPlayerInfo();
+        casinoResponse.printRegisterPlayerInfo();
         return request.getPlayerInfo();
     }
 }

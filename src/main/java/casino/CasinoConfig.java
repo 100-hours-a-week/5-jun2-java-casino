@@ -22,7 +22,7 @@ public class CasinoConfig {
     /**
      * I/O Views, Request
      */
-    public CasinoResponse casinoOutputView() {
+    public CasinoResponse casinoResponse() {
         return new CasinoResponse();
     }
 
@@ -30,7 +30,7 @@ public class CasinoConfig {
         return new CasinoInputView(scanner());
     }
 
-    public ExchangeResponse exchangeOutputView() {
+    public ExchangeResponse exchangeResponse() {
         return new ExchangeResponse();
     }
 
@@ -38,7 +38,7 @@ public class CasinoConfig {
         return new ExchangeInputView(scanner());
     }
 
-    public GameResponse gameOutputView() {
+    public GameResponse gameResponse() {
         return new GameResponse();
     }
 
