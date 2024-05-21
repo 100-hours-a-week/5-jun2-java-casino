@@ -34,11 +34,8 @@ public class GameInputView {
     public boolean readSlotMachinePayment() {
         try {
             String acceptPayment = readLine(REQUEST_SLOT_MACHINE_PAYMENT.getMessage());
-            GameInputValidator.validateSlotMachineAccept(acceptPayment);
-            if (acceptPayment.equals("Y") || acceptPayment.equals("y")) {
-                return true;
-            }
-            return false;
+            GameInputValidator.validateRetry(acceptPayment);
+            return acceptPayment.equals("Y") || acceptPayment.equals("y");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return readSlotMachinePayment();
