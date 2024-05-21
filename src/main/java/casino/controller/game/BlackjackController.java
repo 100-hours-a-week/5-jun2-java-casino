@@ -20,6 +20,6 @@ public class BlackjackController implements GameController {
 
     @Override
     public void process(Game game, Player player) {
-
+        System.out.println("[추후 업데이트 예정 ^~^]");
     }
 }
