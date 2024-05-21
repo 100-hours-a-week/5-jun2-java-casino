@@ -11,7 +11,6 @@ import casino.dto.RouletteGameResultDto;
 import casino.dto.SlotMachineGameResultDto;
 
 public interface GameService {
-    public Game generateGame(GameType type, Player player);
     public SlotMachineGameResultDto playSlotMachine(Game game, Player player);
     public RouletteGameResultDto playRoulette(RouletteBetInfoDto info, Game game, Player player);
     public void playBlackjack(Game game,Player player);

@@ -15,7 +15,6 @@ import casino.domain.game.slotmachine.SlotMachineGame;
 import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.participant.Player;
 import casino.domain.type.ChipType;
-import casino.domain.type.GameType;
 import casino.dto.RouletteBetInfoDto;
 import casino.dto.RouletteGameResultDto;
 import casino.dto.SlotMachineGameResultDto;
@@ -27,19 +26,6 @@ import java.util.Map;
  */
 public class GameServiceImpl implements GameService {
     private static final int SLOT_MACHINE_PRICE = 5000;
-
-    @Override
-    public Game generateGame(GameType type, Player player) {
-        if (type == SLOT_MACHINE) {
-            return new SlotMachineGame(type, player, STOP);
-        } else if (type == ROULETTE) {
-            return new RouletteGame(type, player, STOP);
-        } else if (type == BLACKJACK) {
-            return new BlackjackGame(type, player, STOP);
-        } else {
-            return new BaccaratGame(type, player, STOP);
-        }
-    }
 
     @Override
     public SlotMachineGameResultDto playSlotMachine(Game game, Player player) {

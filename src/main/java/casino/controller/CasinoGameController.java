@@ -4,6 +4,7 @@ import static casino.domain.game.roulette.RouletteBetType.*;
 
 import casino.CasinoConfig;
 import casino.domain.game.Game;
+import casino.domain.game.GameGenerator;
 import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.option.GameOption;
 import casino.domain.participant.Player;
@@ -52,7 +53,7 @@ public class CasinoGameController implements Controller {
 
     private void playGame(GameOption gameOption) {
         Player player = (Player) casinoMainService.findParticipantByRoleType(RoleType.PLAYER);
-        Game game = gameService.generateGame(gameOption.getType(), player);
+        Game game = GameGenerator.generateGame(gameOption.getType(), player);
         gameResponse.printGameGreet(gameOption.getType());
 
         try {
