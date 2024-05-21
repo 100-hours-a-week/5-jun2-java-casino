@@ -1,4 +1,4 @@
-package casino.io.game;
+package casino.response;
 
 public enum GameAsciiMessage {
     SLOT_MACHINE_GREET("\n"

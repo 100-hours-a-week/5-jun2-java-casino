@@ -13,7 +13,7 @@ import casino.domain.type.GameType;
 import casino.dto.RouletteBetInfoDto;
 import casino.dto.RouletteGameResultDto;
 import casino.dto.SlotMachineGameResultDto;
-import casino.io.game.GameOutputView;
+import casino.response.GameResponse;
 import casino.request.Request;
 import casino.service.casino.CasinoMainService;
 import casino.service.game.GameService;
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class CasinoGameController implements Controller {
     private final Request request;
-    private final GameOutputView gameOutputView;
+    private final GameResponse gameOutputView;
     private final CasinoMainService casinoMainService;
     private final GameService gameService;
 

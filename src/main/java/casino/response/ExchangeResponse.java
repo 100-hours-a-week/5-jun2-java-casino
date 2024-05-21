@@ -1,11 +1,11 @@
-package casino.io.exchange;
+package casino.response;
 
 import casino.domain.type.ChipType;
 import casino.dto.AccountBalanceInfoDto;
 import java.util.List;
 import java.util.Map;
 
-public class ExchangeOutputView {
+public class ExchangeResponse {
     public void printExchangeOption() {
         System.out.println("!! 환전소에 입장하셨습니다 !!");
         System.out.println("==================================");

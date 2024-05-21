@@ -1,4 +1,4 @@
-package casino.io.game;
+package casino.request;
 
 public enum GameInputMessage {
     REQUEST_GAME_MESSAGE("참여를 원하는 게임을 선택하세요."),

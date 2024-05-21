@@ -5,7 +5,7 @@ import static casino.domain.option.MainOption.*;
 import casino.CasinoConfig;
 import casino.domain.option.MainOption;
 import casino.domain.participant.Player;
-import casino.io.casino.CasinoOutputView;
+import casino.response.CasinoResponse;
 import casino.request.Request;
 import casino.service.casino.CasinoMainService;
 import java.util.LinkedHashMap;
@@ -14,7 +14,7 @@ import java.util.Map;
 // View -> Response 변경
 public class CasinoController implements Controller {
     private final Request request;
-    private final CasinoOutputView casinoOutputView;
+    private final CasinoResponse casinoOutputView;
     private final CasinoMainService casinoMainService;
     private final Map<MainOption, Controller> controllers = new LinkedHashMap<>();
 

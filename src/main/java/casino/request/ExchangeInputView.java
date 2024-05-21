@@ -1,4 +1,4 @@
-package casino.io.exchange;
+package casino.request;
 
 import casino.domain.type.ChipType;
 import casino.domain.option.ExchangeOption;

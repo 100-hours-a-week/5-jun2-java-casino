@@ -1,6 +1,6 @@
-package casino.io.casino;
+package casino.response;
 
-public class CasinoOutputView {
+public class CasinoResponse {
     public void printGreet() {
         System.out.print("\n"
                 + " _    _        _                                 _              ___                _____   _____              _                _ \n"

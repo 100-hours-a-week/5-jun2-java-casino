@@ -7,9 +7,6 @@ import casino.domain.option.MainOption;
 import casino.domain.participant.Player;
 import casino.domain.type.ChipType;
 import casino.domain.type.GameType;
-import casino.io.casino.CasinoInputView;
-import casino.io.exchange.ExchangeInputView;
-import casino.io.game.GameInputView;
 import java.util.Map;
 
 public class ConsoleRequest implements Request {

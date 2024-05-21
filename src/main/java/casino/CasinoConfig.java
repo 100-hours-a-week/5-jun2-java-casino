@@ -1,11 +1,11 @@
 package casino;
 
-import casino.io.casino.CasinoInputView;
-import casino.io.casino.CasinoOutputView;
-import casino.io.exchange.ExchangeInputView;
-import casino.io.exchange.ExchangeOutputView;
-import casino.io.game.GameInputView;
-import casino.io.game.GameOutputView;
+import casino.request.CasinoInputView;
+import casino.response.CasinoResponse;
+import casino.request.ExchangeInputView;
+import casino.response.ExchangeResponse;
+import casino.request.GameInputView;
+import casino.response.GameResponse;
 import casino.repository.CasinoMainRepository;
 import casino.repository.CasinoRepository;
 import casino.request.ConsoleRequest;
@@ -22,24 +22,24 @@ public class CasinoConfig {
     /**
      * I/O Views, Request
      */
-    public CasinoOutputView casinoOutputView() {
-        return new CasinoOutputView();
+    public CasinoResponse casinoOutputView() {
+        return new CasinoResponse();
     }
 
     public CasinoInputView casinoInputView() {
         return new CasinoInputView(scanner());
     }
 
-    public ExchangeOutputView exchangeOutputView() {
-        return new ExchangeOutputView();
+    public ExchangeResponse exchangeOutputView() {
+        return new ExchangeResponse();
     }
 
     public ExchangeInputView exchangeInputView() {
         return new ExchangeInputView(scanner());
     }
 
-    public GameOutputView gameOutputView() {
-        return new GameOutputView();
+    public GameResponse gameOutputView() {
+        return new GameResponse();
     }
 
     public GameInputView gameInputView() {

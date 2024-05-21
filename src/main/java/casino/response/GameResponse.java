@@ -1,12 +1,12 @@
-package casino.io.game;
+package casino.response;
 
 import static casino.domain.game.roulette.RouletteBetType.*;
-import static casino.io.game.GameAsciiMessage.BACCARAT_GREET;
-import static casino.io.game.GameAsciiMessage.BLACKJACK_GREET;
-import static casino.io.game.GameAsciiMessage.ROULETTE_GREET;
-import static casino.io.game.GameAsciiMessage.SLOT_MACHINE_GREET;
-import static casino.io.game.GameAsciiMessage.STRAIGHT_DOWN;
-import static casino.io.game.GameAsciiMessage.STRAIGHT_UP;
+import static casino.response.GameAsciiMessage.BACCARAT_GREET;
+import static casino.response.GameAsciiMessage.BLACKJACK_GREET;
+import static casino.response.GameAsciiMessage.ROULETTE_GREET;
+import static casino.response.GameAsciiMessage.SLOT_MACHINE_GREET;
+import static casino.response.GameAsciiMessage.STRAIGHT_DOWN;
+import static casino.response.GameAsciiMessage.STRAIGHT_UP;
 
 import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.game.roulette.RouletteColorType;
@@ -18,7 +18,7 @@ import casino.dto.SlotMachineGameResultDto;
 import java.util.List;
 import java.util.Map;
 
-public class GameOutputView {
+public class GameResponse {
     private static final String TOP_LINE = "┌ ─ ┐";
     private static final String MIDDLE_FORMAT = "| %d |";
     private static final String BOTTOM_LINE = "└ ─ ┘";

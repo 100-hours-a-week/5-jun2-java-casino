@@ -1,4 +1,4 @@
-package casino.io.casino;
+package casino.request;
 
 import casino.domain.option.MainOption;
 import casino.domain.participant.Player;

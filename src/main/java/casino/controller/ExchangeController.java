@@ -8,14 +8,14 @@ import casino.domain.option.ExchangeOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
 import casino.dto.AccountBalanceInfoDto;
-import casino.io.exchange.ExchangeOutputView;
+import casino.response.ExchangeResponse;
 import casino.request.Request;
 import casino.service.casino.CasinoMainService;
 import casino.service.exchange.ExchangeService;
 import java.util.Map;
 
 public class ExchangeController implements Controller {
-    private final ExchangeOutputView exchangeOutputView;
+    private final ExchangeResponse exchangeOutputView;
     private final Request request;
     private final ExchangeService exchangeService;
     private final CasinoMainService casinoMainService;
