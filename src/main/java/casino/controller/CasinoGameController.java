@@ -63,11 +63,11 @@ public class CasinoGameController implements Controller {
         }
 
         GameController controller = controllers.get(gameOption.getType());
-        Player player = (Player) casinoMainService.findParticipantByRoleType(RoleType.PLAYER);
-        Game game = GameGenerator.generateGame(gameOption.getType(), player);
-        gameResponse.printGameGreet(gameOption.getType());
 
         try {
+            Player player = (Player) casinoMainService.findParticipantByRoleType(RoleType.PLAYER);
+            Game game = GameGenerator.generateGame(gameOption.getType(), player);
+            gameResponse.printGameGreet(gameOption.getType());
             controller.process(game, player);
         } catch (Exception e) {
             gameResponse.printException(e.getMessage());

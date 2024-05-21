@@ -20,12 +20,6 @@ public class GameInputValidator {
         }
     }
 
-    public static void validateSlotMachineAccept(String input) {
-        if (!acceptOption.contains(input)) {
-            throw new IllegalArgumentException(ERROR_PREFIX + " 올바르지 않은 입력입니다. 다시 입력해주세요.\n");
-        }
-    }
-
     public static void validateRetry(String input) {
         if (!acceptOption.contains(input)) {
             throw new IllegalArgumentException(ERROR_PREFIX + " 올바르지 않은 입력입니다. 다시 입력해주세요.\n");
