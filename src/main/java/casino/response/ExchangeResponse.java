@@ -19,9 +19,9 @@ public class ExchangeResponse {
 
     public void printAccountBalanceInfo(AccountBalanceInfoDto dto) {
         printBlankLine();
-        System.out.println("==================================");
-        System.out.println("|           보유 잔액 확인           |");
-        System.out.println("==================================");
+        System.out.println("======================================================");
+        System.out.println("|                     보유 잔액 확인                     |");
+        System.out.println("======================================================");
         System.out.printf("현금 : " + String.format("%,d", dto.cash())+ "\n");
 
         Map<ChipType, Integer> chips = dto.chips();
@@ -35,17 +35,17 @@ public class ExchangeResponse {
 
     public void printExchangeCashToChips() {
         printBlankLine();
-        System.out.println("==================================");
-        System.out.println("|    보유 현금 칩 교환 (현금 -> 칩)    |");
-        System.out.println("==================================");
+        System.out.println("======================================================");
+        System.out.println("|              보유 현금 칩 교환 (현금 -> 칩)              |");
+        System.out.println("======================================================");
         printChipsInfo();
     }
 
     public void printExchangeChipsToCash() {
         printBlankLine();
-        System.out.println("==================================");
-        System.out.println("|      보유 칩 교환 (칩 -> 현금)      |");
-        System.out.println("==================================");
+        System.out.println("======================================================");
+        System.out.println("|                보유 칩 교환 (칩 -> 현금)                |");
+        System.out.println("======================================================");
         printChipsInfo();
     }
 

@@ -15,25 +15,27 @@ public class CasinoResponse {
 
     public void printMainOption() {
         System.out.println("!! 카지노에 입장하셨습니다 !!");
-        System.out.println("==================================");
-        System.out.println("|          카지노 메인 화면          |");
-        System.out.println("==================================");
+        System.out.println("======================================================");
+        System.out.println("|                    카지노 메인 화면                    |");
+        System.out.println("======================================================");
         System.out.println("1. 환전소");
         System.out.println("2. 카지노 게임");
         System.out.println("Q. 종료");
     }
 
     public void printRegisterPlayerInfo() {
-        System.out.println("==================================");
-        System.out.println("|          플레이어 등록 화면         |");
-        System.out.println("==================================");
+        System.out.println("======================================================");
+        System.out.println("|                   플레이어 등록 화면                    |");
+        System.out.println("======================================================");
     }
 
     public void printEndMessage() {
         printBlankLine();
-        System.out.println("==================================");
-        System.out.println("|      감사합니다. 안녕히 가십시오.     |");
-        System.out.println("==================================");
+        System.out.println("======================================================");
+        System.out.println("|                감사합니다. 안녕히 가십시오.               |");
+        System.out.println("|                  도박 중독 신고는 1336!                |");
+        System.out.println("|     도박할 시간에 코딩합시다. 주 80시간 채워야죠. - void     |");
+        System.out.println("======================================================");
     }
 
     public void printBlankLine() {
