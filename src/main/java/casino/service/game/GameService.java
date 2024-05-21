@@ -14,5 +14,4 @@ public interface GameService {
     public SlotMachineGameResultDto playSlotMachine(Game game, Player player);
     public RouletteGameResultDto playRoulette(RouletteBetInfoDto info, Game game, Player player);
     public void playBlackjack(Game game,Player player);
-    public void playBaccarat(Game game,Player player);
 }
