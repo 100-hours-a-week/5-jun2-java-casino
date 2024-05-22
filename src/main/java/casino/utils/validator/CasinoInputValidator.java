@@ -40,7 +40,7 @@ public class CasinoInputValidator {
     private static void validateNameRegex(String name) {
         // 올바르지 않은 이름 형식을 입력한 경우
         if (!name.matches(NAME_REGEX)) {
-            throw new IllegalArgumentException(ERROR_PREFIX + " 이름은 3~5자 이하의 한글 또는 영어를 입력해야 합니다.\n");
+            throw new IllegalArgumentException(ERROR_PREFIX + " 이름은 3 ~ 10자 이하의 한글 또는 영어를 입력해야 합니다.\n");
         }
     }
 
