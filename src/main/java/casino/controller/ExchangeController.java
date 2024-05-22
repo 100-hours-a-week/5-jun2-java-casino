@@ -60,6 +60,7 @@ public class ExchangeController implements Controller {
 
     private void exchangeService(ExchangeOption option, Player findPlayer) {
         long cash = findPlayer.getCashBalance();
+        Map<ChipType, Integer> playerChips = findPlayer.getChipsBalance();
 
         try {
             if (option == CASH_TO_CHIP) {
@@ -67,7 +68,7 @@ public class ExchangeController implements Controller {
                 Map<ChipType, Integer> chips = request.getExchangeChips();
                 exchangeService.exchangeCashToChips(findPlayer, new AccountBalanceInfoDto(cash, chips));
             } else if (option == CHIP_TO_CASH) {
-                exchangeResponse.printExchangeChipsToCash();
+                exchangeResponse.printExchangeChipsToCash(playerChips);
                 Map<ChipType, Integer> chips = request.getExchangeChips();
                 exchangeService.exchangeChipsToCash(findPlayer, new AccountBalanceInfoDto(cash, chips));
             }

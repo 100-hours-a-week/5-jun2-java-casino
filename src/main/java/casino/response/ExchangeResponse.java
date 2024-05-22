@@ -41,12 +41,23 @@ public class ExchangeResponse {
         printChipsInfo();
     }
 
-    public void printExchangeChipsToCash() {
+    public void printExchangeChipsToCash(Map<ChipType, Integer> chips) {
         printBlankLine();
         System.out.println("======================================================");
         System.out.println("|                보유 칩 교환 (칩 -> 현금)                |");
         System.out.println("======================================================");
         printChipsInfo();
+        printPlayerChips(chips);
+    }
+
+    public void printPlayerChips(Map<ChipType, Integer> chips) {
+        System.out.println("============================== 플레이어 보유 칩 ==============================");
+        for (Map.Entry<ChipType, Integer> entry : chips.entrySet()) {
+            ChipType type = entry.getKey();
+            int count = entry.getValue();
+            System.out.print("[" + type.name() + "]:" + count + " ");
+        }
+        printBlankLine();
     }
 
     public void printBlankLine() {
