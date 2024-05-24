@@ -1,23 +1,25 @@
-package casino.controller;
+package casino.controller.entrypoint.impl;
 
-import static casino.domain.type.GameType.*;
-
-import casino.CasinoConfig;
-import casino.controller.game.BlackjackController;
+import casino.Jun2CasinoObjectContainer;
+import casino.controller.entrypoint.Controller;
+import casino.controller.game.impl.BlackjackController;
 import casino.controller.game.GameController;
-import casino.controller.game.RouletteController;
-import casino.controller.game.SlotMachineController;
+import casino.controller.game.impl.RouletteController;
+import casino.controller.game.impl.SlotMachineController;
 import casino.domain.game.Game;
 import casino.domain.game.GameGenerator;
 import casino.domain.option.GameOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
 import casino.domain.type.GameType;
+import casino.request.CasinoRequest;
 import casino.response.GameResponse;
-import casino.request.Request;
 import casino.service.casino.CasinoMainService;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static casino.domain.type.GameType.*;
 
 /**
  *  리팩토링시 게임 종류별로 컨트롤러 및 서비스, I/O 로직 분리 -> 해당 클래스가 너무 많은 책임을 가짐
@@ -27,16 +29,16 @@ import java.util.Map;
  *  3. 컨트롤러에서 play -> 서비스에서 play -> 도메인에서 play [O]
  */
 public class CasinoGameController implements Controller {
-    private final Request request;
+    private final CasinoRequest casinoRequst;
     private final GameResponse gameResponse;
     private final CasinoMainService casinoMainService;
     Map<GameType, GameController> controllers = new LinkedHashMap<>();
 
-    public CasinoGameController(CasinoConfig casinoConfig) {
-        initializeControllers(casinoConfig);
-        this.request = casinoConfig.request();
-        this.gameResponse = casinoConfig.gameResponse();
-        this.casinoMainService = casinoConfig.casinoMainService();
+    public CasinoGameController(Jun2CasinoObjectContainer jun2CasinoObjectContainer) {
+        initializeControllers(jun2CasinoObjectContainer);
+        this.casinoRequst = jun2CasinoObjectContainer.casinoRequest();
+        this.gameResponse = jun2CasinoObjectContainer.gameResponse();
+        this.casinoMainService = jun2CasinoObjectContainer.casinoMainService();
     }
 
     @Override
@@ -46,15 +48,16 @@ public class CasinoGameController implements Controller {
         do {
             gameResponse.printBlankLine();
             gameResponse.printGameOption();
-            gameOption = request.getGameOption();
+            gameOption = casinoRequst.getGameOption();
             processController(gameOption);
         } while (gameOption.isContinue());
     }
 
-    private void initializeControllers(CasinoConfig casinoConfig) {
-        controllers.put(SLOT_MACHINE, new SlotMachineController(casinoConfig));
-        controllers.put(ROULETTE, new RouletteController(casinoConfig));
-        controllers.put(BLACKJACK, new BlackjackController(casinoConfig));
+    private void initializeControllers(Jun2CasinoObjectContainer jun2CasinoObjectContainer) {
+        // TODO - casinoConfig 의존성 제거하고 필요한 객체만 주입받도록 수정
+        controllers.put(SLOT_MACHINE, new SlotMachineController(jun2CasinoObjectContainer));
+        controllers.put(ROULETTE, new RouletteController(jun2CasinoObjectContainer));
+        controllers.put(BLACKJACK, new BlackjackController(jun2CasinoObjectContainer));
     }
 
     private void processController(GameOption gameOption) {

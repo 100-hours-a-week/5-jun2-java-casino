@@ -1,30 +1,32 @@
-package casino.controller;
+package casino.controller.entrypoint.impl;
 
-import static casino.domain.option.ExchangeOption.*;
-
-import casino.CasinoConfig;
-import casino.domain.type.ChipType;
+import casino.Jun2CasinoObjectContainer;
+import casino.controller.entrypoint.Controller;
 import casino.domain.option.ExchangeOption;
 import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
+import casino.domain.type.ChipType;
 import casino.dto.AccountBalanceInfoDto;
+import casino.request.CasinoRequest;
 import casino.response.ExchangeResponse;
-import casino.request.Request;
 import casino.service.casino.CasinoMainService;
 import casino.service.exchange.ExchangeService;
+
 import java.util.Map;
 
+import static casino.domain.option.ExchangeOption.*;
+
 public class ExchangeController implements Controller {
-    private final Request request;
+    private final CasinoRequest request;
     private final ExchangeResponse exchangeResponse;
     private final ExchangeService exchangeService;
     private final CasinoMainService casinoMainService;
 
-    public ExchangeController(CasinoConfig casinoConfig) {
-        this.request = casinoConfig.request();
-        this.exchangeResponse = casinoConfig.exchangeResponse();
-        this.exchangeService = casinoConfig.exchangeService();
-        this.casinoMainService = casinoConfig.casinoMainService();
+    public ExchangeController(Jun2CasinoObjectContainer jun2CasinoObjectContainer) {
+        this.request = jun2CasinoObjectContainer.casinoRequest();
+        this.exchangeResponse = jun2CasinoObjectContainer.exchangeResponse();
+        this.exchangeService = jun2CasinoObjectContainer.exchangeService();
+        this.casinoMainService = jun2CasinoObjectContainer.casinoMainService();
     }
 
     @Override

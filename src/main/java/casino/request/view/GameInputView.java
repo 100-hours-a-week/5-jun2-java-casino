@@ -1,7 +1,7 @@
-package casino.request;
+package casino.request.view;
 
 import static casino.domain.game.roulette.RouletteBetType.*;
-import static casino.request.GameInputMessage.*;
+import static casino.request.type.GameInputMessageType.*;
 
 import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.option.GameOption;

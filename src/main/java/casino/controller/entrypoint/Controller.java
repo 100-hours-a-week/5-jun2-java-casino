@@ -1,4 +1,4 @@
-package casino.controller;
+package casino.controller.entrypoint;
 
 public interface Controller {
     void process();
