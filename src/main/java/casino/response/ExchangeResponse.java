@@ -71,7 +71,7 @@ public class ExchangeResponse {
     private void printChipsInfo() {
         List<ChipType> types = List.of(ChipType.values());
         for (ChipType type : types) {
-            System.out.println(type.getName() + " - " + type.getKrw() + " 원");
+            System.out.println(type.getName() + " - " + String.format("%,d", type.getKrw()) + " 원");
         }
     }
 }
