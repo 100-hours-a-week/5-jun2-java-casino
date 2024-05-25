@@ -20,10 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 public class GameResponse {
-    private static final String TOP_LINE = "┌ ─ ┐";
-    private static final String MIDDLE_FORMAT = "| %d |";
-    private static final String BOTTOM_LINE = "└ ─ ┘";
-
     public void printGameOption() {
         System.out.println("!! 카지노 게임장에 입장하셨습니다 !!");
         System.out.println("======================================================");
@@ -131,29 +127,11 @@ public class GameResponse {
 
         thread.start();
 
-//        try {
-//            for (int number : numbers) {
-//                String top = "┌ ─ ┐";
-//                String middle = "| " + number + " |";
-//                String bottom = "└ ─ ┘";
-//
-//                topRow.append(top);
-//                middleRow.append(middle);
-//                bottomRow.append(bottom);
-//
-//                // 현재까지의 행을 출력
-//                System.out.print("\r" + topRow.toString() + "\n" + middleRow.toString() + "\n" + bottomRow.toString() + "\n");
-//
-//                Thread.sleep(500);
-//            }
-//        } catch (InterruptedException e) {
-//            System.err.println("Thread was interrupted.");
-//        }
         try {
             for (int number : numbers) {
-                String top = "┌───┐";
-                String middle = "| " + number + " |";
-                String bottom = "└───┘";
+                final String top = "┌───┐";
+                final String middle = "| " + number + " |";
+                final String bottom = "└───┘";
 
                 // 각 숫자 추가 시마다 각 행에 해당 부분을 추가
                 topRow.append(top).append(" ");
