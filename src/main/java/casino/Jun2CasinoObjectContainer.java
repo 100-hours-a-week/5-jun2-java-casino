@@ -1,24 +1,27 @@
 package casino;
 
-import casino.request.CasinoInputView;
-import casino.response.CasinoResponse;
-import casino.request.ExchangeInputView;
-import casino.response.ExchangeResponse;
-import casino.request.GameInputView;
-import casino.response.GameResponse;
 import casino.repository.CasinoMainRepository;
 import casino.repository.CasinoRepository;
-import casino.request.ConsoleRequest;
-import casino.request.Request;
+import casino.request.CasinoRequest;
+import casino.request.RouletteRequest;
+import casino.request.impl.CasinoRequestImpl;
+import casino.request.impl.RoullettRequestImpl;
+import casino.request.view.CasinoInputView;
+import casino.request.view.ExchangeInputView;
+import casino.request.view.GameInputView;
+import casino.response.CasinoResponse;
+import casino.response.ExchangeResponse;
+import casino.response.GameResponse;
 import casino.service.casino.CasinoMainService;
 import casino.service.casino.CasinoMainServiceImpl;
 import casino.service.exchange.ExchangeService;
 import casino.service.exchange.ExchangeServiceImpl;
 import casino.service.game.GameService;
 import casino.service.game.GameServiceImpl;
+
 import java.util.Scanner;
 
-public class CasinoConfig {
+public class Jun2CasinoObjectContainer {
     /**
      * I/O Views, Request
      */
@@ -46,10 +49,13 @@ public class CasinoConfig {
         return new GameInputView(scanner());
     }
 
-    public Request request() {
-        return new ConsoleRequest(casinoInputView(), exchangeInputView(), gameInputView());
+    public CasinoRequest casinoRequest() {
+        return new CasinoRequestImpl(casinoInputView(), exchangeInputView(), gameInputView());
     }
 
+    public RouletteRequest rouletteRequest() {
+        return new RoullettRequestImpl(gameInputView());
+    }
     /**
      *  Services & Repositories
      */

@@ -1,6 +1,6 @@
-package casino.request;
+package casino.request.type;
 
-public enum GameInputMessage {
+public enum GameInputMessageType {
     REQUEST_GAME_MESSAGE("참여를 원하는 게임을 선택하세요."),
     REQUEST_SLOT_MACHINE_PAYMENT("슬롯 머신 1회 결제 금액은 5,000원 입니다. 결제하시겠습니까? [Y/N]"),
     REQUEST_ROULETTE_CHIP("%s 게임에 베팅할 칩 개수를 쉼표(,)로 구분하여 입력해주세요. ex) 1, 0, 2, 0, 0, 0"),
@@ -15,7 +15,7 @@ public enum GameInputMessage {
 
     private String message;
 
-    GameInputMessage(String message) {
+    GameInputMessageType(String message) {
         this.message = message;
     }
 

@@ -1,29 +1,31 @@
-package casino.controller.game;
+package casino.controller.game.impl;
 
-import static casino.domain.game.roulette.RouletteBetType.FIVE_NUMBER_BET;
-import static casino.domain.type.GameType.ROULETTE;
-
-import casino.CasinoConfig;
+import casino.Jun2CasinoObjectContainer;
+import casino.controller.game.GameController;
 import casino.domain.game.Game;
 import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.participant.Player;
 import casino.domain.type.ChipType;
 import casino.dto.RouletteBetInfoDto;
 import casino.dto.RouletteGameResultDto;
-import casino.request.Request;
+import casino.request.RouletteRequest;
 import casino.response.GameResponse;
 import casino.service.game.GameService;
+
 import java.util.Map;
 
+import static casino.domain.game.roulette.RouletteBetType.FIVE_NUMBER_BET;
+import static casino.domain.type.GameType.ROULETTE;
+
 public class RouletteController implements GameController {
-    private final Request request;
+    private final RouletteRequest request;
     private final GameResponse gameResponse;
     private final GameService gameService;
 
-    public RouletteController(CasinoConfig casinoConfig) {
-        this.request = casinoConfig.request();
-        this.gameResponse = casinoConfig.gameResponse();
-        this.gameService = casinoConfig.gameService();
+    public RouletteController(Jun2CasinoObjectContainer jun2CasinoObjectContainer) {
+        this.request = jun2CasinoObjectContainer.rouletteRequest();
+        this.gameResponse = jun2CasinoObjectContainer.gameResponse();
+        this.gameService = jun2CasinoObjectContainer.gameService();
     }
 
     @Override

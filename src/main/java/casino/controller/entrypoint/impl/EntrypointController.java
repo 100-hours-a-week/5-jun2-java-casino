@@ -1,32 +1,33 @@
-package casino.controller;
+package casino.controller.entrypoint.impl;
 
-import static casino.domain.option.MainOption.*;
-
-import casino.CasinoConfig;
+import casino.Jun2CasinoObjectContainer;
+import casino.controller.entrypoint.Controller;
 import casino.domain.option.MainOption;
 import casino.domain.participant.Player;
+import casino.request.CasinoRequest;
 import casino.response.CasinoResponse;
-import casino.request.Request;
 import casino.service.casino.CasinoMainService;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static casino.domain.option.MainOption.*;
+
 // View -> Response 변경
-public class CasinoController implements Controller {
-    private final Request request;
+public class EntrypointController {
+    private final CasinoRequest request;
     private final CasinoResponse casinoResponse;
     private final CasinoMainService casinoMainService;
     private final Map<MainOption, Controller> controllers = new LinkedHashMap<>();
 
-    public CasinoController(CasinoConfig casinoConfig) {
-        initializeControllers(casinoConfig);
-        request = casinoConfig.request();
-        casinoResponse = casinoConfig.casinoResponse();
-        casinoMainService = casinoConfig.casinoMainService();
+    public EntrypointController(Jun2CasinoObjectContainer jun2CasinoObjectContainer) {
+        initializeControllers(jun2CasinoObjectContainer);
+        request = jun2CasinoObjectContainer.casinoRequest();
+        casinoResponse = jun2CasinoObjectContainer.casinoResponse();
+        casinoMainService = jun2CasinoObjectContainer.casinoMainService();
     }
 
-    @Override
-    public void process() {
+    public void run() {
         MainOption mainOption;
 
         casinoResponse.printGreet();
@@ -41,9 +42,9 @@ public class CasinoController implements Controller {
         } while (mainOption.isContinue());
     }
 
-    private void initializeControllers(CasinoConfig casinoConfig) {
-        controllers.put(CURRENCY_EXCHANGE, new ExchangeController(casinoConfig));
-        controllers.put(CASINO_GAME, new CasinoGameController(casinoConfig));
+    private void initializeControllers(Jun2CasinoObjectContainer jun2CasinoObjectContainer) {
+        controllers.put(CURRENCY_EXCHANGE, new ExchangeController(jun2CasinoObjectContainer));
+        controllers.put(CASINO_GAME, new CasinoGameController(jun2CasinoObjectContainer));
     }
 
     private void processController(MainOption mainOption) {

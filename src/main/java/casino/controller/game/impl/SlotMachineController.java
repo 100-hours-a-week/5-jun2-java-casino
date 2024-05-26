@@ -1,27 +1,27 @@
-package casino.controller.game;
+package casino.controller.game.impl;
 
-import casino.CasinoConfig;
+import casino.controller.game.GameController;
 import casino.domain.game.Game;
 import casino.domain.participant.Player;
 import casino.dto.SlotMachineGameResultDto;
-import casino.request.Request;
+import casino.request.SlotMachineRequest;
 import casino.response.GameResponse;
 import casino.service.game.GameService;
 
 public class SlotMachineController implements GameController {
-    private final Request request;
+    private final SlotMachineRequest slotMachineRequest;
     private final GameResponse gameResponse;
     private final GameService gameService;
 
-    public SlotMachineController(CasinoConfig casinoConfig) {
-        this.request = casinoConfig.request();
-        this.gameResponse = casinoConfig.gameResponse();
-        this.gameService = casinoConfig.gameService();
+    public SlotMachineController(SlotMachineRequest slotMachineRequest, GameResponse gameResponse, GameService gameService) {
+        this.slotMachineRequest = slotMachineRequest;
+        this.gameResponse = gameResponse;
+        this.gameService = gameService;
     }
 
     @Override
     public void process(Game game, Player player) {
-        boolean playGame = request.getSlotMachinePayment();
+        boolean playGame = this.slotMachineRequest.getSlotMachinePayment();
 
         if (playGame && !game.isPlay()) {
             game.changeStatus();
@@ -33,7 +33,7 @@ public class SlotMachineController implements GameController {
             SlotMachineGameResultDto result = gameService.playSlotMachine(game, player);
             gameResponse.printSlotMachineResult(result);
 
-            boolean retry = request.getRetryGame();
+            boolean retry = slotMachineRequest.getRetryGame();
             if (retry) {
                 process(game, player);
             } else {
