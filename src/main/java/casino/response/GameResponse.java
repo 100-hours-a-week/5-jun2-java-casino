@@ -15,6 +15,7 @@ import casino.domain.type.ChipType;
 import casino.domain.type.GameType;
 import casino.dto.RouletteGameResultDto;
 import casino.dto.SlotMachineGameResultDto;
+import java.awt.Toolkit;
 import java.util.List;
 import java.util.Map;
 
@@ -123,30 +124,74 @@ public class GameResponse {
     }
 
     private void printNumbers(int[] numbers) {
-        int size = numbers.length;
-        printTopLine(size);
-        printMiddleLine(numbers);
-        printBottomLine(size);
+        Thread thread = new Thread(new BeepTask(numbers.length));
+        StringBuilder topRow = new StringBuilder();
+        StringBuilder middleRow = new StringBuilder();
+        StringBuilder bottomRow = new StringBuilder();
+
+        thread.start();
+
+//        try {
+//            for (int number : numbers) {
+//                String top = "┌ ─ ┐";
+//                String middle = "| " + number + " |";
+//                String bottom = "└ ─ ┘";
+//
+//                topRow.append(top);
+//                middleRow.append(middle);
+//                bottomRow.append(bottom);
+//
+//                // 현재까지의 행을 출력
+//                System.out.print("\r" + topRow.toString() + "\n" + middleRow.toString() + "\n" + bottomRow.toString() + "\n");
+//
+//                Thread.sleep(500);
+//            }
+//        } catch (InterruptedException e) {
+//            System.err.println("Thread was interrupted.");
+//        }
+        try {
+            for (int number : numbers) {
+                String top = "┌───┐";
+                String middle = "| " + number + " |";
+                String bottom = "└───┘";
+
+                // 각 숫자 추가 시마다 각 행에 해당 부분을 추가
+                topRow.append(top).append(" ");
+                middleRow.append(middle).append(" ");
+                bottomRow.append(bottom).append(" ");
+
+                // 전체 행을 다시 출력
+                System.out.println("\r\033[K" + topRow.toString());
+                System.out.println(middleRow.toString());
+                System.out.println(bottomRow.toString());
+
+                System.out.print("\033[F\033[F\033[F");
+
+                Thread.sleep(500); // 1초 동안 대기
+            }
+        } catch (InterruptedException e) {
+            System.err.println("Thread was interrupted.");
+        }
     }
 
-    private void printTopLine(int size) {
-        for (int i = 0; i < size; i++) {
-            System.out.print(TOP_LINE);
-        }
-        printBlankLine();
-    }
+    static class BeepTask implements Runnable {
+        private final int count;
 
-    private void printMiddleLine(int[] numbers) {
-        for (int number : numbers) {
-            System.out.printf(MIDDLE_FORMAT, number);
+        public BeepTask(int count) {
+            this.count = count;
         }
-        printBlankLine();
-    }
 
-    private void printBottomLine(int size) {
-        for (int i = 0; i < size; i++) {
-            System.out.print(BOTTOM_LINE);
+        @Override
+        public void run() {
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+            try {
+                for (int i = 0; i < count; i++) {
+                    toolkit.beep();
+                    Thread.sleep(500);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        printBlankLine();
     }
 }
