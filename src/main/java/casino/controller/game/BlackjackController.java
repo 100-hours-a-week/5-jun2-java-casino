@@ -2,7 +2,10 @@ package casino.controller.game;
 
 import casino.CasinoConfig;
 import casino.domain.game.Game;
+import casino.domain.game.blackjack.BlackjackGame;
+import casino.domain.participant.Dealer;
 import casino.domain.participant.Player;
+import casino.domain.participant.RoleType;
 import casino.request.Request;
 import casino.response.GameResponse;
 import casino.service.casino.CasinoMainService;
@@ -20,6 +23,12 @@ public class BlackjackController implements GameController {
 
     @Override
     public void process(Game game, Player player) {
-        System.out.println("[추후 업데이트 예정 ^~^]");
+        BlackjackGame blackjackGame = (BlackjackGame) game;
+        Dealer dealer = new Dealer("dealer", RoleType.DEALER);
+        try {
+            blackjackGame.play(player, dealer);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

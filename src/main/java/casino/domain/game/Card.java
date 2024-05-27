@@ -11,7 +11,19 @@ public class Card {
         this.type = type;
     }
 
-    public String getCardTypeUnicode() {
+    public int number() {
+        return Integer.parseInt(number);
+    }
+
+    public String unicode() {
         return type.getUnicode();
+    }
+
+    public boolean isOverTen() {
+        return "JQK".contains(number);
+    }
+
+    public boolean isAce() {
+        return number.equals("A");
     }
 }

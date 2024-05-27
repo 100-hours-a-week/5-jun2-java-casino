@@ -1,19 +1,35 @@
 package casino.domain.participant;
 
+import casino.domain.game.CardDeck;
 import casino.domain.type.ChipType;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class Player extends Participant {
+public class Player extends Participant implements Runnable {
     private long cash;
+    private CardDeck cardDeck;
     private final EnumMap<ChipType, Integer> chips = new EnumMap<>(ChipType.class);
 
     public Player(String name, RoleType roleType, long cash) {
         super(name, roleType);
         this.cash = cash;
         initializeChips();
+    }
+
+    @Override
+    public void play(CardDeck cardDeck) {
+        cards.clear();
+
+        while (getCardsValue() < 17) {
+            addCard(cardDeck.drawCard());
+        }
+    }
+
+    @Override
+    public void run() {
+        play(cardDeck);
     }
 
     public long getCashBalance() {
@@ -48,6 +64,10 @@ public class Player extends Participant {
         validateChipSize(playerChips.size(), betChips.size());
         validateBetChipCount(playerChips, betChips);
         validateChipsIsAllZero(betChips);
+    }
+
+    public void setCardDeck(CardDeck cardDeck) {
+        this.cardDeck = cardDeck;
     }
 
     private void initializeChips() {
