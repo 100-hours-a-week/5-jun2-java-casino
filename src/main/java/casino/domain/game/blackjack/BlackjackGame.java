@@ -1,51 +1,109 @@
 package casino.domain.game.blackjack;
 
+import casino.domain.game.Card;
 import casino.domain.game.CardDeck;
 import casino.domain.game.CardGame;
 import casino.domain.participant.Dealer;
 import casino.domain.participant.Player;
+import casino.domain.participant.RoleType;
 import casino.domain.type.GameStatus;
 import casino.domain.type.GameType;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.List;
+import java.util.Scanner;
+
 
 public class BlackjackGame extends CardGame {
+    private final CardDeck cardDeck;
+    private final Dealer dealer;
+    private boolean playerTurnOver = false;
+    private boolean dealerTurnOver = false;
+
     public BlackjackGame(GameType gameType, Player player, GameStatus status) {
         super(gameType, player, status);
+        this.cardDeck = new CardDeck();
+        this.dealer = new Dealer("Dealer", RoleType.DEALER);
     }
 
-    public void play(Player player, Dealer dealer) throws Exception {
-        CardDeck cardDeck = new CardDeck();
+    public void setGame() {
+        player.clearCard();
+        dealer.clearCard();
+        cardDeck.reset();
 
         for (int i = 0; i < 2; i++) {
             player.addCard(cardDeck.drawCard());
             dealer.addCard(cardDeck.drawCard());
         }
 
-        player.setCardDeck(cardDeck);
-        dealer.setCardDeck(cardDeck);
+        List<Card> cards = player.getCards();
+        for (Card card : cards) {
+            System.out.print(card.toString() + " ");
+        }
+        System.out.println();
 
-        // Player, Dealer 턴 관리
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        List<Card> dcards = dealer.getCards();
+        for (Card card : dcards) {
+            System.out.print(card.toString() + " ");
+        }
+        System.out.println();
+    }
 
-        Callable<Void> playerTask = () -> {
-            player.play(cardDeck);
-            return null;
-        };
+    public synchronized void playerTurn() {
+        System.out.println("플레이어의 턴!!!");
+        while (!playerTurnOver) {
+            if (player.isBusted()) {
+                playerTurnOver = true;
+                notifyAll();
+                return;
+            }
 
-        Callable<Void> dealerTask = () -> {
-            dealer.play(cardDeck);
-            return null;
-        };
+            System.out.print("hit or stay ? ");
+            String command = new Scanner(System.in).nextLine();
+            System.out.println(command);
 
-        Future<Void> playerFuture = executor.submit(playerTask);
-        Future<Void> dealerFuture = executor.submit(dealerTask);
+            if ("stay".equals(command)) {
+                playerTurnOver = true;
+            } else {
+                Card card = cardDeck.drawCard();
+                System.out.println("player draw : " + card.toString());
+                player.addCard(card);
+            }
 
-        playerFuture.get();
-        dealerFuture.get();
+            notifyAll();
 
-        executor.shutdown();
+            try {
+                if (!playerTurnOver) {
+                    wait();
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    public synchronized void dealerTurn() {
+        System.out.println("딜러의 턴!!!");
+        while (!dealerTurnOver) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+
+            if (dealer.getCardsValue() < 17 && playerTurnOver) {
+                dealer.addCard(cardDeck.drawCard());
+            } else {
+                dealerTurnOver = true;
+                return;
+            }
+            notifyAll();
+        }
+    }
+
+    public int calculateDealerScore() {
+        return dealer.getCardsValue();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
