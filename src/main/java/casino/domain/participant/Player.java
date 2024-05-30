@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class Player extends Participant {
     private long cash;
+    private boolean turnOver = false;
+    private final Object lock = new Object();
     private final EnumMap<ChipType, Integer> chips = new EnumMap<>(ChipType.class);
 
     public Player(String name, RoleType roleType, long cash) {
@@ -48,6 +50,18 @@ public class Player extends Participant {
         validateChipSize(playerChips.size(), betChips.size());
         validateBetChipCount(playerChips, betChips);
         validateChipsIsAllZero(betChips);
+    }
+
+    public boolean isTurnOver() {
+        return turnOver;
+    }
+
+    public void clearCard() {
+        cards.clear();
+    }
+
+    public void setTurnOver(boolean turnOver) {
+        this.turnOver = turnOver;
     }
 
     private void initializeChips() {

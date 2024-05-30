@@ -6,8 +6,8 @@ import casino.domain.type.GameType;
 
 public class Game {
     private GameType gameType;
-    private Player player;
     private GameStatus status;
+    protected Player player;
 
     public Game(GameType gameType, Player player, GameStatus status) {
         this.gameType = gameType;

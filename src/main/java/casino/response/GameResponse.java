@@ -8,9 +8,13 @@ import static casino.response.GameAsciiMessage.SLOT_MACHINE_GREET;
 import static casino.response.GameAsciiMessage.STRAIGHT_DOWN;
 import static casino.response.GameAsciiMessage.STRAIGHT_UP;
 
+import casino.domain.game.Card;
 import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.game.roulette.RouletteColorType;
 import casino.domain.game.slotmachine.SlotMachineResult;
+import casino.domain.participant.Participant;
+import casino.domain.participant.Player;
+import casino.domain.participant.RoleType;
 import casino.domain.type.ChipType;
 import casino.domain.type.GameType;
 import casino.dto.RouletteGameResultDto;
@@ -109,6 +113,43 @@ public class GameResponse {
         } else {
             System.out.println("[당첨 환산 금액] : 0 원");
         }
+    }
+
+    public void printCards(Participant participant) {
+        String top = "┌────┐";
+        String middle = "| %s |";
+        String bottom = "└────┘";
+        List<Card> cards = participant.getCards();
+
+
+
+        if (participant.isPlayer()) {
+            System.out.println("[ Player " + participant.getName() + " 초기 카드 ]");
+        } else {
+            printBlankLine();
+            System.out.println("[ Dealer 초기 카드 ]");
+            middle = "| ## |";
+        }
+
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.print(top);
+        }
+        printBlankLine();
+        for (Card card : cards) {
+            System.out.printf(middle, card.toString());
+        }
+        printBlankLine();
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.print(bottom);
+        }
+        printBlankLine();
+    }
+
+    public void printBlackjackValue(int playerResult, int dealerResult) {
+        printBlankLine();
+        System.out.println("플레이어 카드 합 : " + playerResult);
+        System.out.println("딜러 카드 합 : " + dealerResult);
+        printBlankLine();
     }
 
     public void printBlankLine() {

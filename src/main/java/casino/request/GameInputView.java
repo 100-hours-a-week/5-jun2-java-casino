@@ -123,6 +123,17 @@ public class GameInputView {
         }
     }
 
+    public String readBlackjackCommand() {
+        try {
+            String input = readLine(REQUEST_BLACKJACK_COMMAND.getMessage());
+            GameInputValidator.validateBlackjackCommand(input);
+            return input;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return readBlackjackCommand();
+        }
+    }
+
     private String readLine(String message) {
         System.out.println(message);
         System.out.print(CONSOLE_SYMBOL.getMessage());
