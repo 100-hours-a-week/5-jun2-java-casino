@@ -11,7 +11,8 @@ public enum GameInputMessage {
     REQUEST_ROULETTE_NOT_MULTIPLY_OF_3("0 ~ 36 까지의 숫자 중 3의 배수가 아닌 숫자 하나에 베팅해주세요. ex) 2, 23, 31, 35"),
     REQUEST_ROULETTE_STREET_BET("0 ~ 36 까지의 숫자 중 3으로 나눈 나머지가 1인 숫자 하나에 베팅해주세요. ex) 1, 19, 16, 19"),
     REQUEST_THREE_OPTIONS("1, 2, 3 중 베팅하고자 하는 옵션을 숫자로 입력해주세요."),
-    REQUEST_TWO_OPTIONS("1, 2 중 베팅하고자 하는 옵션을 숫자로 입력해주세요.");
+    REQUEST_TWO_OPTIONS("1, 2 중 베팅하고자 하는 옵션을 숫자로 입력해주세요."),
+    REQUEST_BLACKJACK_COMMAND("추가 카드를 받으려면 hit, 그렇지 않으면 stay를 입력해주세요. [hit/stay]");
 
     private String message;
 

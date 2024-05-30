@@ -70,6 +70,11 @@ public class GameInputValidator {
         }
     }
 
+    public static void validateBlackjackCommand(String input) {
+        if (!input.equals("hit") && !input.equals("stay")) {
+            throw new IllegalArgumentException(ERROR_PREFIX +" hit, stay 중 하나를 입력해주세요.\n");
+        }
+    }
 
     private static void validateChipsRegex(String input) {
         try {

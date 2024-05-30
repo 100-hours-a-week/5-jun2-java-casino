@@ -11,19 +11,21 @@ public class Card {
         this.type = type;
     }
 
-    public int number() {
-        return Integer.parseInt(number);
+    public int getValue() {
+        switch (number) {
+            case "A":
+                return 11; // Ace
+            case "K":
+            case "Q":
+            case "J":
+                return 10;
+            default:
+                return Integer.parseInt(number);
+        }
     }
 
-    public String unicode() {
-        return type.getUnicode();
-    }
-
-    public boolean isOverTen() {
-        return "JQK".contains(number);
-    }
-
-    public boolean isAce() {
-        return number.equals("A");
+    @Override
+    public String toString() {
+        return type.getUnicode() + number;
     }
 }

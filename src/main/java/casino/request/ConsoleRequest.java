@@ -83,4 +83,9 @@ public class ConsoleRequest implements Request {
     public int getRouletteBetOptionNumber(RouletteBetType betType) {
         return gameInputView.readRouletteBetOptionNumber(betType);
     }
+
+    @Override
+    public String getBlackjackCommand() {
+        return gameInputView.readBlackjackCommand();
+    }
 }

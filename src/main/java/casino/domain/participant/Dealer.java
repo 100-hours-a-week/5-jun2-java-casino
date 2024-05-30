@@ -2,28 +2,16 @@ package casino.domain.participant;
 
 import casino.domain.game.CardDeck;
 
-public class Dealer extends Participant implements Runnable {
+public class Dealer extends Participant {
     private CardDeck cardDeck;
+    private final Object lock = new Object();
+    private boolean playerTurnOver = false;
 
     public Dealer(String name, RoleType roleType) {
         super(name, roleType);
     }
 
-    @Override
-    public void play(CardDeck cardDeck) {
+    public void clearCard() {
         cards.clear();
-
-        while (getCardsValue() < 17) {
-            addCard(cardDeck.drawCard());
-        }
-    }
-
-    @Override
-    public void run() {
-        play(cardDeck);
-    }
-
-    public void setCardDeck(CardDeck cardDeck) {
-        this.cardDeck = cardDeck;
     }
 }

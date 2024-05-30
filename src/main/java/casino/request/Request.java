@@ -31,4 +31,7 @@ public interface Request {
     RouletteBetType getRouletteBetType();
     int getRouletteBetNumber(RouletteBetType betType);
     int getRouletteBetOptionNumber(RouletteBetType betType);
+
+    // Blackjack
+    String getBlackjackCommand();
 }

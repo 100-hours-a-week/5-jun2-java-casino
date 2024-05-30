@@ -8,15 +8,18 @@ import casino.domain.participant.Player;
 import casino.domain.participant.RoleType;
 import casino.domain.type.GameStatus;
 import casino.domain.type.GameType;
-import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 
 
 public class BlackjackGame extends CardGame {
     private final CardDeck cardDeck;
     private final Dealer dealer;
-    private boolean playerTurnOver = false;
-    private boolean dealerTurnOver = false;
+    private volatile boolean playerTurnOver = false;
+    private volatile boolean dealerTurnOver = false;
+    private volatile boolean gameOver = false;
+    private final CountDownLatch playerDoneSignal = new CountDownLatch(1);
+    private final CountDownLatch dealerDoneSignal = new CountDownLatch(1);
 
     public BlackjackGame(GameType gameType, Player player, GameStatus status) {
         super(gameType, player, status);
@@ -33,69 +36,71 @@ public class BlackjackGame extends CardGame {
             player.addCard(cardDeck.drawCard());
             dealer.addCard(cardDeck.drawCard());
         }
-
-        List<Card> cards = player.getCards();
-        for (Card card : cards) {
-            System.out.print(card.toString() + " ");
-        }
-        System.out.println();
-
-        List<Card> dcards = dealer.getCards();
-        for (Card card : dcards) {
-            System.out.print(card.toString() + " ");
-        }
-        System.out.println();
     }
 
-    public synchronized void playerTurn() {
-        System.out.println("플레이어의 턴!!!");
-        while (!playerTurnOver) {
-            if (player.isBusted()) {
+    public void playerTurn() {
+        while (!playerTurnOver && !gameOver) {
+            if (player.isBusted() || player.getCardsValue() == 21) {
                 playerTurnOver = true;
-                notifyAll();
+                gameOver = true;
+                playerDoneSignal.countDown();
+                dealerDoneSignal.countDown();
                 return;
             }
 
-            System.out.print("hit or stay ? ");
-            String command = new Scanner(System.in).nextLine();
-            System.out.println(command);
+            String command = readCommand();
 
-            if ("stay".equals(command)) {
+            if ("end".equals(command)) {
                 playerTurnOver = true;
             } else {
                 Card card = cardDeck.drawCard();
-                System.out.println("player draw : " + card.toString());
+                System.out.println("플레이어가 카드를 받았습니다! " + card.toString() );
                 player.addCard(card);
             }
 
-            notifyAll();
+            if (player.getCardsValue() > 21) {
+                playerTurnOver = true;
+                gameOver = true;
+                playerDoneSignal.countDown();
+                dealerDoneSignal.countDown();
+                return;
+            }
 
-            try {
-                if (!playerTurnOver) {
-                    wait();
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+            if (playerTurnOver) {
+                playerDoneSignal.countDown();
             }
         }
     }
 
-    public synchronized void dealerTurn() {
-        System.out.println("딜러의 턴!!!");
-        while (!dealerTurnOver) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+    public void dealerTurn() {
+        try {
+            playerDoneSignal.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        while (!dealerTurnOver && !gameOver) {
+            if (dealer.getCardsValue() > 21 || dealer.getCardsValue() == 21) {
+                dealerTurnOver = true;
+                gameOver = true;
+                dealerDoneSignal.countDown();
+                return;
             }
 
             if (dealer.getCardsValue() < 17 && playerTurnOver) {
+                System.out.println("딜러가 카드를 받았습니다!");
                 dealer.addCard(cardDeck.drawCard());
             } else {
                 dealerTurnOver = true;
+                dealerDoneSignal.countDown();
+            }
+
+            if (dealer.getCardsValue() > 21) {
+                dealerTurnOver = true;
+                gameOver = true;
+                dealerDoneSignal.countDown();
                 return;
             }
-            notifyAll();
         }
     }
 
@@ -105,5 +110,22 @@ public class BlackjackGame extends CardGame {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Dealer getDealer() {
+        return dealer;
+    }
+
+    private String readCommand() {
+        System.out.print("카드를 추가로 받으려면 hit, 종료하려면 end 를 입력하세요. [hit/end] ");
+        try {
+            String command = new Scanner(System.in).nextLine();
+            if (!command.equals("hit") && !command.equals("end")) {
+                throw new IllegalArgumentException();
+            }
+            return command;
+        } catch (IllegalArgumentException e) {
+            return readCommand();
+        }
     }
 }
