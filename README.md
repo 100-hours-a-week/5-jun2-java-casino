@@ -11,7 +11,7 @@
                                                                                                                                  
                                                                                                                                  
 ```
-[노션 정리 링크](https://www.notion.so/goorm/6-2-ca4fec41f09a4869a9ae65c9a737a273?pvs=4)
+[노션 정리 링크](https://www.notion.so/goorm/6-2-ca4fec41f09a4869a9ae65c9a737a273?pvs=4)g
 
 ---
 # 🚀 주요 기능 목록

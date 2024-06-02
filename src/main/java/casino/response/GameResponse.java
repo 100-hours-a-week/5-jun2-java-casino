@@ -13,8 +13,6 @@ import casino.domain.game.roulette.RouletteBetType;
 import casino.domain.game.roulette.RouletteColorType;
 import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.participant.Participant;
-import casino.domain.participant.Player;
-import casino.domain.participant.RoleType;
 import casino.domain.type.ChipType;
 import casino.domain.type.GameType;
 import casino.dto.RouletteGameResultDto;
