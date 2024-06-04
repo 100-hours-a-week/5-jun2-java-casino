@@ -2,12 +2,8 @@ package casino.service.game;
 
 import casino.domain.game.Game;
 import casino.domain.game.blackjack.BlackjackGame;
-import casino.domain.game.roulette.RouletteBetType;
-import casino.domain.game.slotmachine.SlotMachineGame;
-import casino.domain.game.slotmachine.SlotMachineResult;
 import casino.domain.participant.Player;
 import casino.domain.type.ChipType;
-import casino.domain.type.GameType;
 import casino.dto.RouletteBetInfoDto;
 import casino.dto.RouletteGameResultDto;
 import casino.dto.SlotMachineGameResultDto;
